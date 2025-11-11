@@ -23,6 +23,8 @@ public class Person {
     private String username;
     @Column(name = "phone")
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
+    @Enumerated(EnumType.STRING)
     private Role role;
 }
