@@ -18,7 +18,7 @@ public class SecurityConfig {
         return http.
                 authorizeHttpRequests(auth->auth
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/NGO").hasRole("ROLE_NGO")
+                        .requestMatchers("/NGO").hasRole("NGO")
                         .requestMatchers("/gov").hasRole("GOVERNMENT_PERSONAL")
                         .requestMatchers("/user").hasRole("CITIZEN"))
                 .sessionManagement(session-> session.sessionCreationPolicy
