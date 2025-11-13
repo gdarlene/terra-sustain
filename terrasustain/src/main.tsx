@@ -5,10 +5,10 @@ import './index.css';
 import Home from './components/unauthenticated/Home';
 import LoginPage from './components/auth/Login';
 import SignupPage from './components/auth/Register';
-import AboutPage from './components/unauthenticated/about';
 import './styles/animations.css';
 // layouts
 import MainLayout from './layouts/MainLayout';
+import AboutPage from './components/unauthenticated/about';
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
