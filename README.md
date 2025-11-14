@@ -22,3 +22,10 @@ Building TerraSnap the following tech stack was used
 - Spring Boot for backend
 - Spring Security for protected and enhanced backend APIs security
 - Relational databases
+
+### How to install it: 
+To get your local version of terrasustain you can run the following commands in your terminal
+- git clone ```https://github.com/gdarlene/terra-sustain.git```
+- `cd terrasustain`
+
+With this you will be able to run each folder separately
