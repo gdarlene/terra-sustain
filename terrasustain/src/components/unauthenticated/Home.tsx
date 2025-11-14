@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-
-
 interface Callout {
   name: string;
   description: string;
@@ -9,37 +7,10 @@ interface Callout {
   imageAlt: string;
   href: string;
 }
-
-const callouts: Callout[] = [
-  {
-    name: "Market opportunities for Farmers",
-    description: "We help farmers get a market place with realtime prices",
-    imageSrc: "/images/yummy.jpg",
-    imageAlt: "people holding harvests",
-    href: "#",
-  },
-  {
-    name: "Hotels Market place",
-    description: "We are a safe platform for hotels",
-    imageSrc: "/images/hotel food.jpg",
-    imageAlt: "people preparing food",
-    href: "#",
-  },
-  {
-    name: "Logistic Services",
-    description:
-      "We provide safe logistic services for harvest to reach the market",
-    imageSrc: "/images/delivery-car.jpg",
-    imageAlt: "delivery car",
-    href: "#",
-  },
-];
-
 // Custom hook: Observe when element is in view
 const useInView = (options: IntersectionObserverInit = {}) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -50,7 +21,6 @@ const useInView = (options: IntersectionObserverInit = {}) => {
       },
       { threshold: 0.1, ...options }
     );
-
     const current = ref.current;
     if (current) observer.observe(current);
 
@@ -58,17 +28,14 @@ const useInView = (options: IntersectionObserverInit = {}) => {
       if (current) observer.unobserve(current);
     };
   }, [options]);
-
   return [ref, isVisible] as const;
 };
-
 const Home: React.FC = () => {
   const partners = [
     { alt: "World Wildlife Fund", src: "/images/wwf-logo.png" },
     { alt: "GreenPeace logo", src: "/images/green-peace.png" },
     { alt: "Green Belt Movement Africa", src: "/images/the-green-belt-movement.png" },
   ];
-
   return (
     <>
       {/* HERO SECTION */}
@@ -81,7 +48,6 @@ const Home: React.FC = () => {
           />
           <div className="absolute inset-0 bg-black/65" />
         </div>
-
         <div className="ml-10 sm:ml-24 md:ml-56">
           <h2 className="text-5xl font-bold text-white sm:text-5xl">
             <span className="mb-2 pb-2">Engage With The Proactive</span>
@@ -108,7 +74,6 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
-
       {/* OUR COMMUNITY SECTION */}
       <section id="community" className="py-16 bg-gradient-to-b from-green-50 to-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -121,7 +86,6 @@ const Home: React.FC = () => {
               youth — together, we're restoring our land, one report at a time.
             </p>
           </div>
-
           {/* COMMUNITY GRID */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {[
@@ -170,7 +134,6 @@ const Home: React.FC = () => {
               );
             })}
           </div>
-
           {/* COMMUNITY STATS */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {[
@@ -193,7 +156,6 @@ const Home: React.FC = () => {
               );
             })}
           </div>
-
           {/* CTA */}
           <div className="mt-12 text-center">
             <a
