@@ -109,7 +109,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* OUR COMMUNITY SECTION */}
-      <section className="py-16 bg-gradient-to-b from-green-50 to-white">
+      <section id="community" className="py-16 bg-gradient-to-b from-green-50 to-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-green-800 font-titles">

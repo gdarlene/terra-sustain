@@ -4,7 +4,7 @@ import React from 'react';
 const navigation  = [
     {name:'Home',href:'/',current:false},
     {name:'Community',href:'#community',current:false},
-    {name:'Report Issue',href:'/#issues',current:false},
+    {name:'Our Partners',href:'/#partners',current:false},
     {name:'About Us',href:'/about',current:false},
     {name:'Contact Us',href:'#contacts',current:false},    
 ]

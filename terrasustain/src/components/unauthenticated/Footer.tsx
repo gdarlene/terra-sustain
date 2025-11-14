@@ -5,9 +5,9 @@ const Footer: React.FC = () => {
       {/* Background Image with Blur Overlay */}
       <div 
         className="absolute inset-0 bg-footer-bg bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("/images/fresh-produce.jpg")' }}
+        style={{ backgroundImage: 'url("/images/sustain-earth.png")' }}
       />
-      <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/45 backdrop-blur-sm" />
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 md:gap-20">

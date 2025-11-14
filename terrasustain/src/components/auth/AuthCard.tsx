@@ -40,7 +40,7 @@ export const AuthCard: React.FC<Props> = ({
 
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-white font-medium rounded-md transition"
+              className="w-full py-3 px-4 bg-secondary text-[#fbfff5] shadow focus:bg-secondary/90 hover:bg-secondary/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary font-medium rounded-md transition"
             >
               {submitText}
             </button>
