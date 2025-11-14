@@ -64,7 +64,7 @@ public class PersonController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
             String jwt = jwtUtil.generateToken(userDetails);
-            Person person = personService.findByUsername(request.getUsername())
+            Person person = personService.findPersonByUsername(request.getUsername())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             AuthenticationResponse response = new AuthenticationResponse(
                     jwt,
