@@ -17,10 +17,15 @@ public class PersonController {
     @Autowired
     private PersonService personService;
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register (@Valid RegisterRequest registerRequest) {
-        RegisterResponse res = new RegisterResponse();
-        return new ResponseEntity<>(res, HttpStatus.OK);
+    public ResponseEntity<?> register (@Valid RegisterRequest registerRequest) {
+        try {
+            RegisterResponse res = new RegisterResponse();
+            return ResponseEntity.ok("registration successful");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
+
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login (@Valid AuthenticationRequest req) {
         AuthenticationResponse res = new AuthenticationResponse();
