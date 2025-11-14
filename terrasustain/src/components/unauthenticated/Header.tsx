@@ -3,10 +3,10 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import React from 'react';
 const navigation  = [
     {name:'Home',href:'/',current:false},
-    {name:'Community',href:'#community',current:false},
+    {name:'Community',href:'/#community',current:false},
     {name:'Our Partners',href:'/#partners',current:false},
     {name:'About Us',href:'/about',current:false},
-    {name:'Contact Us',href:'#contacts',current:false},    
+    {name:'Contact Us',href:'/#contacts',current:false},    
 ]
 function className(...classes){
     return classes.filter(Boolean).join(' ')
