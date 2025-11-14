@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
+    Optional<Person> findByUsername(String username);
     @Query("SELECT p FROM Person p WHERE p.username = :input OR p.email = :input OR p.phoneNumber = :input")
     Optional<Person> findByUsernameOrPhoneNumberOrEmail(@Param("input") String input);
 }
