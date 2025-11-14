@@ -8,9 +8,8 @@ const navigation  = [
     {name:'About Us',href:'/about',current:false},
     {name:'Contact Us',href:'/#contacts',current:false},    
 ]
-function className(...classes){
-    return classes.filter(Boolean).join(' ')
-
+function className(...classes: (string | boolean | null | undefined)[]) {
+  return classes.filter(Boolean).join(' ');
 }
 const Header : React.FC = () =>{
    return (

@@ -1,12 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-interface Callout {
-  name: string;
-  description: string;
-  imageSrc: string;
-  imageAlt: string;
-  href: string;
-}
 // Custom hook: Observe when element is in view
 const useInView = (options: IntersectionObserverInit = {}) => {
   const ref = useRef<HTMLDivElement | null>(null);

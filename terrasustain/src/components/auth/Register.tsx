@@ -4,10 +4,6 @@ import { AuthCard } from './AuthCard';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios, {AxiosError} from 'axios';
-interface RegisterResponse{
-  success:boolean;
-  message?:string;
-}
 const SignupPage: React.FC = () => {
   const navigate  = useNavigate();
   const [firstName, setFirstName] = useState('');
@@ -20,7 +16,6 @@ const SignupPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [error, setError] = useState('');
-  const [isLoading,setIsLoading] = useState(false);
   const CITIZEN= 'CITIZEN';
   const NGO = 'NGO';
   const GVT = "GVT";
@@ -30,7 +25,6 @@ const SignupPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setIsLoading(true);
 
     // Validation (before API)
     if (!firstName || !lastName || !username || !role || !phoneNumber || !password || !confirmPassword) {
@@ -79,9 +73,7 @@ const SignupPage: React.FC = () => {
           axiosErr.message ??
           'Something went wrong. Please try again.'
       );
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
 
   return (
