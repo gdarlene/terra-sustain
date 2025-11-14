@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .cors(cors->cors.configurationSource(corsConfiguration()))
                 .authenticationProvider(authProvider())
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/login","/register").permitAll()
                         .requestMatchers("/NGO").hasRole("NGO")
                         .requestMatchers("/gov").hasRole("GOVERNMENT_PERSONAL")
                         .requestMatchers("/user").hasRole("CITIZEN"))

@@ -42,9 +42,9 @@ public class PersonController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register (@Valid RegisterRequest registerRequest) {
+    public ResponseEntity<?> register (@Valid @RequestBody RegisterRequest registerRequest) {
         try {
-            RegisterResponse res = new RegisterResponse();
+            personService.createPerson(registerRequest);
             return ResponseEntity.ok("registration successful");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
