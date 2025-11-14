@@ -38,7 +38,7 @@ const Details: React.FC = () => {
                     {({ focus }) => (
                       <a
                         href="#"
-                        className={`block px-4 py-2 text-sm ${
+                        className={`block px-4 py-2 text-sm hover:text-white ${
                           focus
                             ? 'bg-neutral1-100 text-white'
                             : 'text-white font-semibold'
@@ -52,7 +52,7 @@ const Details: React.FC = () => {
                     {({ focus }) => (
                       <a
                         href="#"
-                        className={`block px-4 py-2 text-sm ${
+                        className={`block px-4 py-2 text-sm hover:text-white ${
                           focus
                             ? 'bg-neutral1-100 text-gray-900'
                             : 'text-gray-700'
@@ -66,7 +66,7 @@ const Details: React.FC = () => {
                     {({ focus }) => (
                       <a
                         href="#"
-                        className={`block px-4 py-2 text-sm ${
+                        className={`block px-4 py-2 text-sm hover:text-white ${
                           focus
                             ? 'bg-neutral1-100 text-gray-900'
                             : 'text-gray-700'
@@ -80,7 +80,7 @@ const Details: React.FC = () => {
                     {({ focus }) => (
                       <a
                         href="#"
-                        className={`block px-4 py-2 text-sm ${
+                        className={`block px-4 py-2 text-sm hover:text-white ${
                           focus
                             ? 'bg-neutral1-100 text-gray-900'
                             : 'text-gray-700'

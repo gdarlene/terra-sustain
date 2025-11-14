@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
+
 interface Callout {
   name: string;
   description: string;
@@ -151,13 +152,13 @@ const Home: React.FC = () => {
                     <img
                       src={item.src}
                       alt={item.alt}
-                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                    <div className="absolute top-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse">
+                    <div className="absolute top-4 right-4 bg-[#f9a109fe] text-white text-xs font-bold px-3 py-1 rounded-full animate-bounce">
                       {item.badge}
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white cursor-pointer">
                       <h3 className="text-lg font-semibold">{item.caption}</h3>
                       <p className="text-sm opacity-90">See their impact →</p>
                     </div>
