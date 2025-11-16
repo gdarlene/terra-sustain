@@ -72,7 +72,7 @@ const LoginPage: React.FC = () => {
       footer={
         <>
           Don’t have an account?{' '}
-          <Link to="/register" className="font-medium text-primary hover:underline">
+          <Link to="/role" className="font-medium text-primary hover:underline">
             Sign up
           </Link>
         </>
