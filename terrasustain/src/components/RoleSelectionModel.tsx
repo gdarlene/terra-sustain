@@ -30,9 +30,9 @@ return(
             <input
               type="radio"
               name="role"
-              value="gov"
-              checked={selectedRole === 'gov'}
-              onChange={() => handleRoleChange('gov')}
+              value="GOVERNMENT_PERSONAL"
+              checked={selectedRole === 'GOVERNMENT_PERSONAL'}
+              onChange={() => handleRoleChange('GOVERNMENT_PERSONAL')}
               className="mr-2"
             />
             Gov
