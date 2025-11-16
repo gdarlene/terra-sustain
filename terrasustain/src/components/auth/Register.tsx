@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Link,useNavigate } from 'react-router-dom';
 import { AuthCard } from './AuthCard';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios, {AxiosError} from 'axios';
+
 const SignupPage: React.FC = () => {
   const navigate  = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
-  const [role, setRole] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirm] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [error, setError] = useState('');
-  const CITIZEN= 'CITIZEN';
-  const NGO = 'NGO';
-  const GVT = "GVT";
-
   const API_BASE = 'http://localhost:8096/terrasustain';
+
+  const [searchParams] =useSearchParams();
+  const role = searchParams.get("role")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
     // Validation (before API)
-    if (!firstName || !lastName || !username || !role || !phoneNumber || !password || !confirmPassword) {
+    if (!firstName || !lastName || !username || !phoneNumber || !password || !confirmPassword) {
       setError('All fields are required');
       return;
     }
@@ -47,16 +47,19 @@ const SignupPage: React.FC = () => {
       setError('Passwords do not match');
       return;
     }
-
+    if (!role) {
+      setError("Role is missing. Please go back and select your account type.");
+      return;
+    }
     // API call
     try {
       const response = await axios.post(`${API_BASE}/register`, {
         firstName,
         lastName,
         username,
-        role,
         phoneNumber,
         password,
+        role:role,
       });
       const isSuccess = response.data?.success === true || response.status === 200;
 
@@ -199,55 +202,6 @@ const SignupPage: React.FC = () => {
         >
           {showConfirm ? <VisibilityOff /> : <Visibility />}
         </button>
-      </div>
-
-      {/* Role Radio Buttons */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center">
-            <input
-              id="citizen"
-              type="radio"
-              name="role"
-              value={CITIZEN}
-              checked={role === CITIZEN}
-              onChange={(e) => setRole(e.target.value)}
-              className="h-4 w-4 text-primary focus:ring-primary"
-            />
-            <label htmlFor="citizen" className="ml-2 text-sm text-gray-700">
-              CITIZEN
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              id="ngo"
-              type="radio"
-              name="role"
-              value={NGO}
-              checked={role === NGO}
-              onChange={(e) => setRole(e.target.value)}
-              className="h-4 w-4 text-primary focus:ring-primary"
-            />
-            <label htmlFor="NGO" className="ml-2 text-sm text-gray-700">
-              NGO
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              id="gvt"
-              type="radio"
-              name="role"
-              value={GVT}
-              checked={role === GVT}
-              onChange={(e) => setRole(e.target.value)}
-              className="h-4 w-4 text-primary focus:ring-primary"
-            />
-            <label htmlFor="gvt" className="ml-2 text-sm text-gray-700">
-              GVT
-            </label>
-          </div>
-        </div>
       </div>
     </AuthCard>
   );
