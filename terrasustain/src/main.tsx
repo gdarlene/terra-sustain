@@ -9,6 +9,7 @@ import './styles/animations.css';
 // layouts
 import MainLayout from './layouts/MainLayout';
 import AboutPage from './components/unauthenticated/about';
+import RoleSelector from './components/RoleSelectionModel';
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/about" element={<AboutPage/>}/>
         </Route>
         {/* Standalone routes (no header/details) */}
+        <Route path='/role' element={<RoleSelector isOpen={true} onClose={() => console.log(" selector closed")}/>}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<SignupPage />} />
       </Routes>

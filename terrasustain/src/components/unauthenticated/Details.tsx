@@ -107,7 +107,7 @@ const Details: React.FC = () => {
                       </a>
 
                       <a
-                        href="/register"
+                        href="/role"
                         className="py-2 px-4 bg-white hover:bg-white/90 text-primary font-medium rounded-md transition"
                       >
                         Signup

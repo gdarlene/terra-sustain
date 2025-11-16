@@ -52,7 +52,7 @@ const Home: React.FC = () => {
           </p>
           <div className="mt-10 flex items-center gap-x-6">
             <a
-              href="/register"
+              href="/role"
               className="rounded-md bg-secondary px-4 py-3 text-sm font-semibold text-[#fbfff5] shadow focus:bg-secondary/90 hover:bg-secondary/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
             >
               Engage with Community
@@ -151,7 +151,7 @@ const Home: React.FC = () => {
           {/* CTA */}
           <div className="mt-12 text-center">
             <a
-              href="/register"
+              href="/role"
               className="inline-flex items-center rounded-full bg-secondary px-8 py-4 text-lg font-semibold text-white shadow-lg hover:bg-secondary/90 transform hover:scale-105 transition-all duration-300"
             >
               <span>Be Part of the Movement</span>
