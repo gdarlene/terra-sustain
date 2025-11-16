@@ -40,7 +40,7 @@ const AboutPage: React.FC = () => {
             <img
               src="/images/community-together.png"
               alt="people working hand in hand for sustainability"
-              className="hidden md:block w-full max-w-xs rounded-2xl shadow-lg object-cover absolute top-3/4 left-1/2 translate-x-1/2 -translate-y[-100%] opacity-90 z-0"
+              className="hidden md:block w-full max-w-xs rounded-2xl shadow-lg object-cover absolute top-3/4 left-2/3 translate-x-1/2-translate-y-full opacity-90 z-0"
             />
           </div>
           {/* Mission Text*/}
