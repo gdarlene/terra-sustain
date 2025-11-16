@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
     }
 
     try {
-      const response: AxiosResponse<SignInResponse> = await axios.post(`${API_BASE}/signin`, {
+      const response: AxiosResponse<SignInResponse> = await axios.post(`${API_BASE}/login`, {
         username,
         password,
       });
