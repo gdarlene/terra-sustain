@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import {HomeIcon, ShoppingBagIcon, BellIcon,} from '@heroicons/react/24/outline';
 
 const ProfileSideBar: React.FC = () => {

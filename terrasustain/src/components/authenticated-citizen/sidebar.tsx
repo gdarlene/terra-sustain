@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
 import {HomeIcon, DocumentIcon, UserGroupIcon, BookOpenIcon,StarIcon} from '@heroicons/react/24/outline';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 const SideBar: React.FC = () => {
-  const navigate = useNavigate();
-  const [error,setError] =useState(" ");
   const navItems = [
     { name: 'Home', icon: HomeIcon, href: '/citizen', current: true },
     { name: 'Community', icon: UserGroupIcon, href: '/citizen/community', current: false },

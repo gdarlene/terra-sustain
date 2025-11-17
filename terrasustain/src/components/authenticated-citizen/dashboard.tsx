@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import SideBar from './sidebar';
 import {UserGroupIcon, PlusCircleIcon} from '@heroicons/react/24/outline';
 import CitizenHeader from './Citizen-header';
