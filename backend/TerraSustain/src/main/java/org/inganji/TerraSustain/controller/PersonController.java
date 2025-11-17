@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Data
@@ -64,17 +65,20 @@ public class PersonController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
             String jwt = jwtUtil.generateToken(userDetails);
-            Person person = personService.findPersonByUsername(request.getUsername())
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            AuthenticationResponse response = new AuthenticationResponse(
-                    jwt,
-                    person.getUsername(),
-                    person.getEmail(),
-                    userDetails.getAuthorities().stream()
-                            .map(GrantedAuthority::getAuthority)
-                            .collect(Collectors.toList())
-            );
-            return ResponseEntity.ok(response);
+            Optional<Person> person = Optional.ofNullable(personService.findPersonByUsername(request.getUsername())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found")));
+            if(person.isPresent()){
+                AuthenticationResponse response = new AuthenticationResponse();
+                response.setToken(jwt);
+                response.setUsername(person.get().getUsername());
+                response.setFirstName(person.get().getFirstName());
+                response.setLastName(person.get().getLastName());
+                response.setRole(person.get().getRole());
+                return ResponseEntity.ok(response);
+            }
+            else{
+                throw new UsernameNotFoundException("Invalid email or password");
+            }
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new ApiResponse(false, "Invalid username or password"));

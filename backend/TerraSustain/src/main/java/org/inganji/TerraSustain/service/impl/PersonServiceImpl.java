@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -32,7 +33,7 @@ public class PersonServiceImpl implements PersonService {
         person.setPhoneNumber(registerRequest.getPhoneNumber());
         person.setFirstName(registerRequest.getFirstName());
         person.setLastName(registerRequest.getLastName());
-        person.setRole(registerRequest.getRole());
+        person.setRole(Collections.singleton(registerRequest.getRole()));
         Person savedPerson = personRepo.save(person);
         return toResponse(savedPerson);
     }

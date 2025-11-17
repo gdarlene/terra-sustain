@@ -7,10 +7,13 @@ import lombok.NoArgsConstructor;
 import org.inganji.TerraSustain.model.DTO.RegisterResponse;
 import org.inganji.TerraSustain.model.Person;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,17 +21,17 @@ public class CustomUserDetails implements UserDetails {
     private Person person;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return(person.getRole().stream().
+                map(roles->new SimpleGrantedAuthority("ROLE_"+roles.name())).collect(Collectors.toList()));
     }
-
     @Override
     public String getPassword() {
-        return "";
+        return person.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return person.getUsername();
     }
 
     @Override

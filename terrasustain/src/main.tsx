@@ -9,8 +9,7 @@ import './styles/animations.css';
 // layouts
 import MainLayout from './layouts/MainLayout';
 import AboutPage from './components/unauthenticated/about';
-import RoleSelector from './components/RoleSelectionModel';
-
+import RoleSelector from './components/auth/RoleSelectionModel';
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>

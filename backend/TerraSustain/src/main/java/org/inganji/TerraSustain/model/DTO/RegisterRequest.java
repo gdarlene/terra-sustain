@@ -21,7 +21,7 @@ public class RegisterRequest {
     @NotBlank
     private String lastName;
     @NotBlank
-    @Size(min = 8, max = 20, message = "password should have characters above or equal ot 8 and not greater than 20")
+    @Size(min = 8, max = 255, message = "password should have characters above or equal ot 8 and not greater than 20")
     private String password;
     @NotBlank
     @Size(min = 6, max = 30, message = "username should have characters above or equal ot 6 and not greater than 30")

@@ -7,8 +7,8 @@ import  type {AxiosResponse}  from 'axios';
 interface SignInResponse {
   token: string;
   username: string;
-  fname: string;
-  lname: string;
+  firstName: string;
+  lastName: string;
   role: string;
 }
 
@@ -38,24 +38,27 @@ const LoginPage: React.FC = () => {
         setError('Invalid response from server');
         return;
       }
-      const { token, username: resUsername, fname, lname, role } = response.data;
+      const { token, username: resUsername, firstName, lastName, role } = response.data;
       localStorage.setItem('token', token);
       localStorage.setItem('username', resUsername);
-      localStorage.setItem('fname', fname);
-      localStorage.setItem('lname', lname);
-      localStorage.setItem('role', role);
-      if(role == "CITIZEN"){
-      navigate('/citizen');
-      }
-      else if(role == "NGO"){
-        navigate('/NGO')
-      }
-      else if(role == "GVT"){
-        navigate("/GOV")
-      }
-      else{
-        navigate("/Role")
-      }
+      localStorage.setItem('firstName', firstName);
+      localStorage.setItem('lastName', lastName);
+      localStorage.setItem('role', role);    
+      try{  
+        if(role == "CITIZEN"){
+        navigate('/citizen');
+        }
+        else if(role == "NGO"){
+          navigate('/NGO')
+        }
+        else if(role == "GOVERNMENT_PERSONAL"){
+          navigate("/GOV")
+        }
+        
+      } catch(err:any){
+        console.error('role identification error', err.response || err);
+        
+      } 
     } catch (err: any) {
       console.error('Login error:', err.response || err);
       setError(err.response?.data?.message || 'Invalid username or password!');
