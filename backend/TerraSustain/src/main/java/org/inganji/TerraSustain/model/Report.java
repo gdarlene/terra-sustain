@@ -22,6 +22,7 @@ public class Report {
     @Column(name="resource_url")
     private String mediaUrl;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="person_id")
     private Person  person;
     @Enumerated(EnumType.STRING)
     private Category category;

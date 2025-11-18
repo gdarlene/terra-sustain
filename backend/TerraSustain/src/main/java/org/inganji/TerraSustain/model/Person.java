@@ -30,6 +30,9 @@ public class Person {
     private Gender gender;
     @Enumerated(EnumType.STRING)
     @Column(name = "title")
-    private Set<Role> role;
+    private Role role;
     private int points;
+    private String bio;
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private Set<Report> report = new HashSet<>();
 }

@@ -1,22 +1,28 @@
 package org.inganji.TerraSustain.service.impl;
 
 import jakarta.transaction.Transactional;
-import org.inganji.TerraSustain.model.DTO.PersonProfileUpdateRequest;
-import org.inganji.TerraSustain.model.DTO.PersonProfileUpdateResponse;
-import org.inganji.TerraSustain.model.DTO.RegisterRequest;
-import org.inganji.TerraSustain.model.DTO.RegisterResponse;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.inganji.TerraSustain.model.DTO.*;
 import org.inganji.TerraSustain.model.Person;
+import org.inganji.TerraSustain.repository.IssueRepository;
 import org.inganji.TerraSustain.repository.PersonRepository;
 import org.inganji.TerraSustain.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Optional;
-
+@Data
+@AllArgsConstructor
 @Service
 public class PersonServiceImpl implements PersonService {
+    @Autowired
+    private IssueRepository issueRepo;
     @Autowired
     private PasswordEncoder encoder;
     @Autowired
@@ -33,11 +39,10 @@ public class PersonServiceImpl implements PersonService {
         person.setPhoneNumber(registerRequest.getPhoneNumber());
         person.setFirstName(registerRequest.getFirstName());
         person.setLastName(registerRequest.getLastName());
-        person.setRole(Collections.singleton(registerRequest.getRole()));
+        person.setRole(registerRequest.getRole());
         Person savedPerson = personRepo.save(person);
         return toResponse(savedPerson);
     }
-
     private RegisterResponse toResponse(Person savedPerson) {
         RegisterResponse res = new RegisterResponse();
         res.setUsername(savedPerson.getUsername());
@@ -46,11 +51,18 @@ public class PersonServiceImpl implements PersonService {
         res.setPhoneNumber(savedPerson.getPhoneNumber());
         return res;
     }
+    public DashboardStatsResponse getDashboardStats(String username) {
+        long totalReports = issueRepo.countReportsByUsername(username);
 
-    @Override
-    public void deletePerson(Long id) {
+        Person person = personRepo.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
+        int ranking = person.getPoints();
+
+        return new DashboardStatsResponse(totalReports,ranking);
     }
+    @Override
+    public void deletePerson(Long id) {}
 
     @Override
     public PersonProfileUpdateResponse updatePerson(PersonProfileUpdateRequest personProfileUpdateRequest) {
@@ -67,4 +79,21 @@ public class PersonServiceImpl implements PersonService {
         return personRepo.findByUsername(username);
 
     }
+    public PersonProfileResponse getPersonInfo(String username) {
+        Person person = personRepo.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return getPersonInfo(person);
+    }
+
+    public PersonProfileResponse getPersonInfo(Person person) {
+        PersonProfileResponse res = new PersonProfileResponse();
+        res.setUsername(person.getUsername());
+        res.setFirstName(person.getFirstName());
+        res.setLastName(person.getLastName());
+        res.setPhoneNumber(person.getPhoneNumber());
+        res.setEmail(person.getEmail());
+        res.setBio(person.getBio());
+        return res;
+    }
+
 }

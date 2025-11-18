@@ -9,6 +9,7 @@ import org.inganji.TerraSustain.model.DTO.*;
 import org.inganji.TerraSustain.model.Person;
 import org.inganji.TerraSustain.service.PersonService;
 import org.inganji.TerraSustain.service.impl.CustomUserDetailsService;
+import org.inganji.TerraSustain.service.impl.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -36,7 +34,7 @@ public class PersonController {
     @Autowired
     private AuthenticationManager authManager;
     @Autowired
-    private PersonService personService;
+    private PersonServiceImpl personService;
     @Autowired
     private CustomUserDetailsService userDetailsService;
     @Autowired
@@ -73,7 +71,7 @@ public class PersonController {
                 response.setUsername(person.get().getUsername());
                 response.setFirstName(person.get().getFirstName());
                 response.setLastName(person.get().getLastName());
-                response.setRole(person.get().getRole());
+                response.setRole(person.get().getRole().name());
                 return ResponseEntity.ok(response);
             }
             else{
@@ -99,5 +97,17 @@ public class PersonController {
                                    PersonProfileUpdateRequest personProfileUpdateRequest) {
         PersonProfileUpdateResponse res = new PersonProfileUpdateResponse();
         return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+    @GetMapping("/citizen/stats")
+    public ResponseEntity<?> getDashboardStats(Authentication authentication) {
+        String username = authentication.getName();
+        DashboardStatsResponse stats = (personService.getDashboardStats(username));
+        return ResponseEntity.ok(stats);
+    }
+    @GetMapping("/citizen/profile/")
+    public ResponseEntity<PersonProfileResponse> getProfile(Authentication authentication) {
+        String username = authentication.getName();
+        PersonProfileResponse profile = personService.getPersonInfo(username);
+        return ResponseEntity.ok(profile);
     }
 }

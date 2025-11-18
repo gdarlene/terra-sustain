@@ -44,9 +44,9 @@ public class SecurityConfig {
                 .authenticationProvider(authProvider())
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers("/login","/register").permitAll()
-                        .requestMatchers("/NGO").hasRole("NGO")
-                        .requestMatchers("/gov").hasRole("GOVERNMENT_PERSONAL")
-                        .requestMatchers("/user").hasRole("CITIZEN"))
+                        .requestMatchers("/NGO").hasAuthority("NGO")
+                        .requestMatchers("/gov").hasAuthority("GOVERNMENT_PERSONAL")
+                        .requestMatchers("/citizen/**").hasAuthority("CITIZEN"))
                 .sessionManagement(session-> session.sessionCreationPolicy
                         (SessionCreationPolicy.STATELESS))
                 .logout(logout->logout
