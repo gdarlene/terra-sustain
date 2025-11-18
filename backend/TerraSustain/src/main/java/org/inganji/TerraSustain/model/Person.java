@@ -31,4 +31,5 @@ public class Person {
     @Enumerated(EnumType.STRING)
     @Column(name = "title")
     private Set<Role> role;
+    private int points;
 }
