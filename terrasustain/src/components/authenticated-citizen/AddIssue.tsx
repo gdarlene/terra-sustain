@@ -3,20 +3,25 @@ import type { ChangeEvent, FormEvent } from "react";
 import SideBar from "./sidebar";
 import axios from "axios";
 import CitizenHeader from "./Citizen-header";
-
+import { useNavigate } from "react-router-dom";
+import SuccessModal from "./SuccessModel";
 interface Issue {
-  name: string;
   issueDescription: string;
+  mediaUrl: string;
+  category:string;
 }
 
 const AddIssue: React.FC = () => {
+  const navigate = useNavigate();
   const [issue, setIssue] = useState<Issue>({
-    name: "",
     issueDescription: "",
+    mediaUrl:"",
+    category:"",
   });
 
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -29,7 +34,7 @@ const AddIssue: React.FC = () => {
     e.preventDefault();
     setError("");
 
-    if (!issue.name || !issue.issueDescription) {
+    if (!issue.issueDescription || !issue.category || !issue.mediaUrl) {
       setError("All fields are required");
       return;
     }
@@ -44,8 +49,9 @@ const AddIssue: React.FC = () => {
 
     try {
       const payload = {
-        name: issue.name,
         issueDescription: issue.issueDescription,
+        mediaUrl: issue.mediaUrl,
+        category: issue.category,
       };
 
       await axios.post(
@@ -59,12 +65,11 @@ const AddIssue: React.FC = () => {
           withCredentials: false,
         }
       );
-
-      alert("Issue added successfully!");
-
-      setIssue({
-        name: "",
+    setShowSuccessModal(true);
+    setIssue({
         issueDescription: "",
+        mediaUrl:"",
+        category:"",
       });
     } catch (err: any) {
       const msg =
@@ -103,26 +108,27 @@ const AddIssue: React.FC = () => {
             <h2 className="text-2xl font-semibold mb-6 text-center text-gray-700">
               Add New Issue
             </h2>
-
+            {/* ---- Category ---- */}
             <div className="mb-5">
-              <label
-                htmlFor="name"
-                className="block text-gray-600 mb-2 font-medium"
-              >
-                Issue Name
+              <label htmlFor="category" className="block text-gray-600 mb-2 font-medium">
+                Category
               </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                value={issue.name}
+              <select
+                id="category"
+                name="category"
+                value={issue.category}
                 onChange={handleChange}
                 required
                 className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-primary transition"
-                placeholder="e.g., Intensive logging"
-              />
+              >
+                <option value="" disabled>
+                  Select a category
+                </option>
+                <option value="POLLUTION">Pollution</option>
+                <option value="OVEREXPLOITATION">Over Exploitation</option>
+                <option value="HABITAT_DESTRUCTION">Habitat Destruction</option>
+              </select>
             </div>
-
             <div className="mb-5">
               <label
                 htmlFor="description"
@@ -141,7 +147,24 @@ const AddIssue: React.FC = () => {
                 placeholder="Please enter Issue description"
               />
             </div>
-
+            <div className="mb-5">
+              <label
+                htmlFor="name"
+                className="block text-gray-600 mb-2 font-medium"
+              >
+                Path to file
+              </label>
+              <input
+                id="mediaUrl"
+                name="mediaUrl"
+                type="text"
+                value={issue.mediaUrl}
+                onChange={handleChange}
+                required
+                className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-primary transition"
+                placeholder="Please enter the full path to the file"
+              />
+            </div>
             <button
               type="submit"
               disabled={isSubmitting}
@@ -157,6 +180,14 @@ const AddIssue: React.FC = () => {
           </form>
         </div>
       </main>
+      {showSuccessModal && (
+        <SuccessModal
+          title="Report"
+          message="Added Successfully"
+          onAddAnother={() => setShowSuccessModal(false)}
+          onGoHome={() => navigate("/citizen")}
+        />
+      )}
     </div>
   );
 };

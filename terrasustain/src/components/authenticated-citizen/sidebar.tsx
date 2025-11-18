@@ -4,7 +4,7 @@ const SideBar: React.FC = () => {
   const navItems = [
     { name: 'Home', icon: HomeIcon, href: '/citizen', current: true },
     { name: 'Community', icon: UserGroupIcon, href: '/citizen/community', current: false },
-    { name: 'Report Issue', icon: DocumentIcon, href: '/citizen/issues', current: false },
+    { name: 'Report Issue', icon: DocumentIcon, href: '/citizen/add_issue', current: false },
     { name: 'SUstainability Resources', icon: BookOpenIcon, href: '/citizen/resources', current: false },
     { name: 'My Performance', icon: StarIcon, href: '/citizen/performance', current: false },
     ];
