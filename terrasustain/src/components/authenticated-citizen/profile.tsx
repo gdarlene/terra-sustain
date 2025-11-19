@@ -27,7 +27,7 @@ const Profile: React.FC = () => {
         });
         setProfile(response.data);
       } catch (err) {
-        console.error("Failed to load profile", err);
+        console.error("404 | Failed to load page", err);
         setError(true);
       } finally {
         setLoading(false);
