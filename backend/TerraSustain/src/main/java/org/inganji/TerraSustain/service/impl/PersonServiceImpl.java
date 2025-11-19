@@ -5,10 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.inganji.TerraSustain.model.DTO.*;
 import org.inganji.TerraSustain.model.Person;
+import org.inganji.TerraSustain.model.UserSummary;
 import org.inganji.TerraSustain.repository.IssueRepository;
 import org.inganji.TerraSustain.repository.PersonRepository;
 import org.inganji.TerraSustain.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Data
 @AllArgsConstructor
 @Service
@@ -95,5 +101,18 @@ public class PersonServiceImpl implements PersonService {
         res.setBio(person.getBio());
         return res;
     }
+    public List<UserSummary> getTopActiveCitizens() {
+        return personRepo.findAll(PageRequest.of(0, 20, Sort.by("points").descending()))
+                .stream()
+                .map(this::toUserSummary)
+                .collect(Collectors.toList());
+    }
 
+    private UserSummary toUserSummary(Person p) {
+        UserSummary u = new UserSummary();
+        u.setId(p.getId());
+        u.setUsername(p.getUsername());
+        u.setPoints(p.getPoints());
+        return u;
+    }
 }

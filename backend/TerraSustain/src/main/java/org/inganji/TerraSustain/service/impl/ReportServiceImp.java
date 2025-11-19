@@ -1,19 +1,28 @@
 package org.inganji.TerraSustain.service.impl;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.inganji.TerraSustain.model.DTO.ReportCreation;
+import org.inganji.TerraSustain.model.DTO.ReportResponse;
 import org.inganji.TerraSustain.model.Person;
 import org.inganji.TerraSustain.model.Report;
 import org.inganji.TerraSustain.repository.IssueRepository;
 import org.inganji.TerraSustain.repository.PersonRepository;
 import org.inganji.TerraSustain.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
+import java.util.List;
+import java.util.stream.Collectors;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Service
 public class ReportServiceImp implements ReportService {
     @Autowired
@@ -50,5 +59,31 @@ public class ReportServiceImp implements ReportService {
     }
     public void deleteReport(Long id) {
         issueRepo.deleteById(id);
+    }
+    public List<ReportResponse> getAllReportsForCommunity() {
+        return issueRepo.findAll(Sort.by(Sort.Direction.DESC, "submittedDate"))
+                .stream()
+                .map(this::toCommunityDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<ReportResponse> searchReports(String query) {
+        String likeQuery = "%" + query.toLowerCase() + "%";
+        return issueRepo.searchReports(likeQuery)
+                .stream()
+                .map(this::toCommunityDto)
+                .collect(Collectors.toList());
+    }
+    private ReportResponse toCommunityDto(Report report) {
+        ReportResponse dto = new ReportResponse();
+        dto.setId(report.getId());
+        dto.setIssueDescription(report.getIssueDescription());
+        dto.setMediaUrl(report.getMediaUrl());
+        dto.setCategory(report.getCategory().name());
+        dto.setSubmittedDate(report.getSubmittedDate());
+        dto.setUsername(report.getPerson().getUsername());
+        dto.setLikes(report.getLikes() != null ? report.getLikes().size() : 0);
+        dto.setComments(report.getComments() != null ? report.getComments().size() : 0);
+        return dto;
     }
 }

@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 import org.inganji.TerraSustain.configuration.JwtUtil;
 import org.inganji.TerraSustain.model.DTO.*;
 import org.inganji.TerraSustain.model.Person;
+import org.inganji.TerraSustain.model.UserSummary;
 import org.inganji.TerraSustain.service.PersonService;
 import org.inganji.TerraSustain.service.impl.CustomUserDetailsService;
 import org.inganji.TerraSustain.service.impl.PersonServiceImpl;
+import org.inganji.TerraSustain.service.impl.ReportServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Data
@@ -39,6 +42,8 @@ public class PersonController {
     private CustomUserDetailsService userDetailsService;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private ReportServiceImp reportService;
 
     @PostMapping("/register")
     public ResponseEntity<?> register (@Valid @RequestBody RegisterRequest registerRequest) {
@@ -109,5 +114,20 @@ public class PersonController {
         String username = authentication.getName();
         PersonProfileResponse profile = personService.getPersonInfo(username);
         return ResponseEntity.ok(profile);
+    }
+    @GetMapping("/reports")
+    public ResponseEntity<List<ReportResponse>> getAllReports() {
+        List<ReportResponse> reports = reportService.getAllReportsForCommunity();
+        return ResponseEntity.ok(reports);
+    }
+    @GetMapping("/members")
+    public ResponseEntity<List<UserSummary>> getCommunityMembers() {
+        List<UserSummary> members = personService.getTopActiveCitizens();
+        return ResponseEntity.ok(members);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<ReportResponse>> searchReports(
+            @RequestParam String q) {
+        return ResponseEntity.ok(reportService.searchReports(q));
     }
 }
