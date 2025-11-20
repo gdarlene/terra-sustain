@@ -110,14 +110,14 @@ const NgoDashboard: React.FC = () => {
 
           {/* Quick Actions */}
           <div className="mt-10 flex flex-wrap gap-4">
-            <a href="/citizen/add_issue">
+            <a href="/ngo/view-citizens">
               <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white font-medium hover:bg-primary/90 transition shadow-md">
                 <PlusCircleIcon className="h-5 w-5" />
                 View Active Citizens
               </button>
             </a>
 
-            <a href="/citizen/community">
+            <a href="/ngo/view-events">
               <button className="flex items-center gap-2 rounded-xl border border-primary px-5 py-3 text-primary font-medium hover:bg-primary/50 hover:text-white transition">
                 <UserGroupIcon className="h-5 w-5" />
                 Browse awarding ceremonies

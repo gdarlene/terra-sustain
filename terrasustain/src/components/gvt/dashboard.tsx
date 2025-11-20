@@ -27,7 +27,7 @@ const CitizenDashboard: React.FC = () => {
         }
 
         const res = await axios.get(
-          "http://localhost:8096/terrasustain/citizen/stats",
+          "http://localhost:8096/terrasustain/gvt/stats",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -110,14 +110,14 @@ const CitizenDashboard: React.FC = () => {
 
           {/* Quick Actions */}
           <div className="mt-10 flex flex-wrap gap-4">
-            <a href="/citizen/add_issue">
+            <a href="/gvt/view-issues">
               <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white font-medium hover:bg-primary/90 transition shadow-md">
                 <PlusCircleIcon className="h-5 w-5" />
-                Report a new issue
+                View Issues
               </button>
             </a>
 
-            <a href="/citizen/community">
+            <a href="/gvt/view-events">
               <button className="flex items-center gap-2 rounded-xl border border-primary px-5 py-3 text-primary font-medium hover:bg-primary/50 hover:text-white transition">
                 <UserGroupIcon className="h-5 w-5" />
                 Browse nearby community events

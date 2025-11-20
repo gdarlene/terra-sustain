@@ -22,7 +22,7 @@ const Profile: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response :AxiosResponse<PersonProfileResponse> = await axios.get("http://localhost:8096/terrasustain/citizen/profile/", {
+        const response :AxiosResponse<PersonProfileResponse> = await axios.get("http://localhost:8096/terrasustain/gvt/profile/", {
           withCredentials: true
         });
         setProfile(response.data);

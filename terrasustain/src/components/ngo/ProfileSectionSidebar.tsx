@@ -2,9 +2,9 @@ import {HomeIcon, ShoppingBagIcon, BellIcon,} from '@heroicons/react/24/outline'
 
 const ProfileSideBar: React.FC = () => {
   const navItems = [
-    { name: 'Personal Info', icon: HomeIcon, href: '/citizen/personal_info', current: true },
-    { name: 'Emails & passwords', icon: ShoppingBagIcon, href: '/citizen/security', current: false },
-    { name: 'Notifications', icon: BellIcon, href: '/citizen/notifications', current: false },
+    { name: 'Personal Info', icon: HomeIcon, href: '/personal_info', current: true },
+    { name: 'Emails & passwords', icon: ShoppingBagIcon, href: '/security', current: false },
+    { name: 'Notifications', icon: BellIcon, href: '/notifications', current: false },
   ];
   return (
     <div className="bg-sectionBg-50">

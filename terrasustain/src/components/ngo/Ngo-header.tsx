@@ -32,7 +32,7 @@ const  NgoHeader : React.FC = () =>{
         {/* Notifications */}
         <button className="relative hover:text-secondary/90">
           
-          <a href="/citizen/notifications"><Notifications fontSize="medium" /></a>
+          <a href="/ngo/notifications/"><Notifications fontSize="medium" /></a>
           {/* if there are notifications it is to be shown */}
           {/* <span className="absolute top-0 right-0 block h-2 w-2 bg-red-500 rounded-full"></span> */}
         </button>
@@ -49,10 +49,10 @@ const  NgoHeader : React.FC = () =>{
           {openProfile && (
             <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md border border-gray-100">
               <ul className="text-sm text-gray-700">
-                <a href="/citizen/profile">
+                <a href="/ngo/profile">
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Profile</li>
                 </a>
-                <a href="/citizen/profile">
+                <a href="/ngo/profile">
                   <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
                 </a>
               </ul>
