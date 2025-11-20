@@ -15,9 +15,9 @@ import org.inganji.TerraSustain.model.Role;
 @Builder
 public class RegisterRequest {
     @NotBlank
-    @Size(min = 6, max = 30, message = "first name should have characters above or equal ot 6 and not greater than 30")
+    @Size(min = 3, max = 30, message = "first name should have characters above or equal ot 6 and not greater than 30")
     private String firstName;
-    @Size(min = 6, max = 30, message = "last name should have characters above or equal ot 6 and not greater than 30")
+    @Size(min = 3, max = 30, message = "last name should have characters above or equal ot 6 and not greater than 30")
     @NotBlank
     private String lastName;
     @NotBlank
