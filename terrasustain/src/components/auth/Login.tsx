@@ -49,10 +49,10 @@ const LoginPage: React.FC = () => {
         navigate('/citizen');
         }
         else if(role == "NGO"){
-          navigate('/NGO')
+          navigate('/ngo')
         }
         else if(role == "GOVERNMENT_PERSONAL"){
-          navigate("/GOV")
+          navigate("/gov")
         }
         
       } catch(err:any){
