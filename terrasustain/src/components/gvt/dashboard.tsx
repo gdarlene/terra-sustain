@@ -12,7 +12,7 @@ interface DashboardStats {
   ranking: number;
 }
 
-const CitizenDashboard: React.FC = () => {
+const GvtDashboard: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -131,4 +131,4 @@ const CitizenDashboard: React.FC = () => {
   );
 };
 
-export default CitizenDashboard;
+export default GvtDashboard;

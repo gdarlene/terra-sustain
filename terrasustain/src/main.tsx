@@ -17,6 +17,8 @@ import AddIssue from './components/authenticated-citizen/AddIssue';
 import CommunityPage from './components/authenticated-citizen/Community';
 import Resources from './components/authenticated-citizen/Resources';
 import Performance from './components/authenticated-citizen/Performance';
+import GvtDashboard from './components/gvt/dashboard';
+import NgoDashboard from './components/ngo/dashboard';
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -33,6 +35,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path= '/citizen/community' element ={<CommunityPage/>}/>
           <Route path= '/citizen/resources' element ={<Resources/>}/>
           <Route path= '/citizen/performance' element ={<Performance/>}/>
+          <Route path= '/gvt' element ={<GvtDashboard/>}/>
+          <Route path= '/ngo' element ={<NgoDashboard/>}/>
         </Route>
         {/* Standalone routes (no header/details) */}
         <Route path='/role' element={<RoleSelector isOpen={true} onClose={() => console.log(" selector closed")}/>}/>
