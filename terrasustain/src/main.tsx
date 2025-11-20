@@ -15,6 +15,8 @@ import CitizenLayout from './components/authenticated-citizen/CitizenLayout';
 import CitizenDashboard from './components/authenticated-citizen/dashboard';
 import AddIssue from './components/authenticated-citizen/AddIssue';
 import CommunityPage from './components/authenticated-citizen/Community';
+import Resources from './components/authenticated-citizen/Resources';
+import Performance from './components/authenticated-citizen/Performance';
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -29,6 +31,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path='/citizen/profile' element ={<Profile/>}/>
           <Route path= '/citizen/add_issue' element ={<AddIssue/>}/>
           <Route path= '/citizen/community' element ={<CommunityPage/>}/>
+          <Route path= '/citizen/resources' element ={<Resources/>}/>
+          <Route path= '/citizen/resources' element ={<Performance/>}/>
         </Route>
         {/* Standalone routes (no header/details) */}
         <Route path='/role' element={<RoleSelector isOpen={true} onClose={() => console.log(" selector closed")}/>}/>
