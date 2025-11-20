@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path= '/citizen/add_issue' element ={<AddIssue/>}/>
           <Route path= '/citizen/community' element ={<CommunityPage/>}/>
           <Route path= '/citizen/resources' element ={<Resources/>}/>
-          <Route path= '/citizen/resources' element ={<Performance/>}/>
+          <Route path= '/citizen/performance' element ={<Performance/>}/>
         </Route>
         {/* Standalone routes (no header/details) */}
         <Route path='/role' element={<RoleSelector isOpen={true} onClose={() => console.log(" selector closed")}/>}/>
