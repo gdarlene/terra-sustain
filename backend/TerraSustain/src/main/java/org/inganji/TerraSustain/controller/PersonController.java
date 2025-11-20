@@ -115,17 +115,17 @@ public class PersonController {
         PersonProfileResponse profile = personService.getPersonInfo(username);
         return ResponseEntity.ok(profile);
     }
-    @GetMapping("/reports")
+    @GetMapping("/citizen/reports")
     public ResponseEntity<List<ReportResponse>> getAllReports() {
         List<ReportResponse> reports = reportService.getAllReportsForCommunity();
         return ResponseEntity.ok(reports);
     }
-    @GetMapping("/members")
+    @GetMapping("/citizen/members")
     public ResponseEntity<List<UserSummary>> getCommunityMembers() {
         List<UserSummary> members = personService.getTopActiveCitizens();
         return ResponseEntity.ok(members);
     }
-    @GetMapping("/search")
+    @GetMapping("/citizen/search")
     public ResponseEntity<List<ReportResponse>> searchReports(
             @RequestParam String q) {
         return ResponseEntity.ok(reportService.searchReports(q));

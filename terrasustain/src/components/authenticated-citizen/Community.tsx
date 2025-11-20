@@ -40,10 +40,10 @@ const CommunityPage: React.FC = () => {
   const fetchData = async () => {
     try {
       const [membersRes, reportsRes] = await Promise.all([
-        axios.get('http://localhost:8096/terrasustain/community/members', {
+        axios.get('http://localhost:8096/terrasustain/citizen/members', {
           headers: { Authorization: `Bearer ${token}` }
         }),
-        axios.get('http://localhost:8096/terrasustain/community/reports', {
+        axios.get('http://localhost:8096/terrasustain/citizen/reports', {
           headers: { Authorization: `Bearer ${token}` }
         })
       ]);
@@ -65,7 +65,7 @@ const CommunityPage: React.FC = () => {
 
     try {
       const res = await axios.get(
-        `http://localhost:8096/terrasustain/community/search?q=${encodeURIComponent(searchTerm)}`,
+        `http://localhost:8096/terrasustain/citizen/search?q=${encodeURIComponent(searchTerm)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setReports(res.data);
