@@ -35,7 +35,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path= '/citizen/community' element ={<CommunityPage/>}/>
           <Route path= '/citizen/resources' element ={<Resources/>}/>
           <Route path= '/citizen/performance' element ={<Performance/>}/>
-          <Route path= '/gvt' element ={<GvtDashboard/>}/>
+          <Route path= '/gov' element ={<GvtDashboard/>}/>
           <Route path= '/ngo' element ={<NgoDashboard/>}/>
         </Route>
         {/* Standalone routes (no header/details) */}
