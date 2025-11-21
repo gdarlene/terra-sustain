@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SideBar from './sidebar';
 import CitizenHeader from './Citizen-header';
 import axios from 'axios';
-
+import { Search } from '@mui/icons-material';
 interface UserSummary {
   id: number;
   username: string;
@@ -109,15 +109,17 @@ const CommunityPage: React.FC = () => {
             Community Hub
           </h1>
 
-          {/* Search */}
-          <input
-            type="text"
-            placeholder="Search reports or citizens..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-4 mb-10 rounded-lg border border-gray-300 text-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-          />
-
+         <div className='flex'>
+            {/* Search */}
+            <input
+              type="text"
+              placeholder="Search reports or citizens..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full p-4 mb-10 rounded-lg border border-gray-300 text-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            />
+              <Search className='text-primary !w-7 !h-7 -mx-11 mt-4'/>
+          </div>
           {/* Members */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">Active Citizens</h2>
