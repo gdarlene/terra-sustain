@@ -3,6 +3,7 @@ import SideBar from './sidebar';
 import CitizenHeader from './Citizen-header';
 import axios from 'axios';
 import { Search } from '@mui/icons-material';
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 interface ReportResponse {
   id: number;
   issueDescription: string;
@@ -83,7 +84,7 @@ const CommunityPage: React.FC = () => {
       <CitizenHeader />
 
       <main className="lg:pl-64">
-        <div className="mx-3 max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
+        <div className="mx-3 max-w-7xl px-4 sm:px-6 lg:px-8 mt-9">
           <h1 className="text-4xl font-bold text-green-800 mb-8 font-titles">
             Community Hub
           </h1>
@@ -99,8 +100,17 @@ const CommunityPage: React.FC = () => {
             />
               <Search className='text-primary !w-7 !h-7 -mx-11 mt-4'/>
           </div>
+          {/* actions */}
+          <div >
+            <a href="/citizen/add_issue">
+              <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white font-medium hover:bg-primary/90transition shadow-md">
+                <PlusCircleIcon className="h-5 w-5" />
+                Add Yours
+              </button>
+            </a>
+          </div>
           {/* Reports Feed */}
-          <section>
+          <section className='mt-7'>
             <h2 className="text-2xl font-bold text-gray-800 mb-6">Recent Environment Posts from other peers</h2>
             <div className="space-y-8">
               {reports.length === 0 ? (
