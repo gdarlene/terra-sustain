@@ -5,7 +5,7 @@ const SideBar: React.FC = () => {
     { name: 'Home', icon: HomeIcon, href: '/citizen', current: false },
     { name: 'Community', icon: UserGroupIcon, href: '/citizen/community', current: false },
     { name: 'Report Issue', icon: DocumentIcon, href: '/citizen/add_issue', current: false },
-    { name: 'SUstainability Resources', icon: BookOpenIcon, href: '/citizen/resources', current: false },
+    { name: 'Sustainability Resources', icon: BookOpenIcon, href: '/citizen/resources', current: false },
     { name: 'My Performance', icon: StarIcon, href: '/citizen/performance', current: false },
     ];
 const API_BASE = "http://localhost:8096/terrasustain";
