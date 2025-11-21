@@ -2,7 +2,7 @@ import {HomeIcon, DocumentIcon, UserGroupIcon, BookOpenIcon,StarIcon} from '@her
 import axios from 'axios';
 const SideBar: React.FC = () => {
   const navItems = [
-    { name: 'Home', icon: HomeIcon, href: '/citizen', current: true },
+    { name: 'Home', icon: HomeIcon, href: '/citizen', current: false },
     { name: 'Community', icon: UserGroupIcon, href: '/citizen/community', current: false },
     { name: 'Report Issue', icon: DocumentIcon, href: '/citizen/add_issue', current: false },
     { name: 'SUstainability Resources', icon: BookOpenIcon, href: '/citizen/resources', current: false },
@@ -35,8 +35,8 @@ const handleLogout = async () => {
                         href={item.href}
                         className={`group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 transition ${
                           item.current
-                            ? 'bg-primary text-white mt-3'
-                            : 'text-neutral-800 hover:bg-neutral1-100 hover:text-primary'
+                            ? 'bg-primary/70 font-semibold mt-3'
+                            : 'hover:bg-primary/70 focus:bg-primary hover:text-semibold hover:text-white'
                         }`}
                       >
                         <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
