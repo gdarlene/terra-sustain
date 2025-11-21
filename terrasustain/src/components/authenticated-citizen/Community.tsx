@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import SideBar from './sidebar';
 import CitizenHeader from './Citizen-header';
 import axios from 'axios';
 import { Search } from '@mui/icons-material';
-interface UserSummary {
-  id: number;
-  username: string;
-  province: string;
-  points: number;
-  avatarUrl?: string;
-}
-
 interface ReportResponse {
   id: number;
   issueDescription: string;
@@ -25,12 +16,9 @@ interface ReportResponse {
 }
 
 const CommunityPage: React.FC = () => {
-  const [members, setMembers] = useState<UserSummary[]>([]);
   const [reports, setReports] = useState<ReportResponse[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -39,16 +27,12 @@ const CommunityPage: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const [membersRes, reportsRes] = await Promise.all([
-        axios.get('http://localhost:8096/terrasustain/citizen/members', {
-          headers: { Authorization: `Bearer ${token}` }
-        }),
+      const [reportsRes] = await Promise.all([
         axios.get('http://localhost:8096/terrasustain/citizen/reports', {
           headers: { Authorization: `Bearer ${token}` }
         })
       ]);
 
-      setMembers(membersRes.data);
       setReports(reportsRes.data);
     } catch (err) {
       console.error("Failed to load community data", err);
@@ -80,11 +64,6 @@ const CommunityPage: React.FC = () => {
     }, 500); // debounce
     return () => clearTimeout(timeout);
   }, [searchTerm]);
-
-  const handleUserClick = (userId: number) => {
-    navigate(`/profile/${userId}`);
-  };
-
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
@@ -120,28 +99,9 @@ const CommunityPage: React.FC = () => {
             />
               <Search className='text-primary !w-7 !h-7 -mx-11 mt-4'/>
           </div>
-          {/* Members */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Active Citizens</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {members.map(user => (
-                <div
-                  key={user.id}
-                  onClick={() => handleUserClick(user.id)}
-                  className="bg-white rounded-xl shadow-md p-4 text-center hover:shadow-xl transition cursor-pointer"
-                >
-                  <div className="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-3 border-4 border-green-100" />
-                  <h3 className="font-bold text-sm">{user.username}</h3>
-                  <p className="text-xs text-gray-600">{user.province}</p>
-                  <p className="text-green-600 font-bold text-sm">{user.points} pts</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
           {/* Reports Feed */}
           <section>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Recent Environmental Reports</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Recent Environment Posts from other peers</h2>
             <div className="space-y-8">
               {reports.length === 0 ? (
                 <p className="text-center text-gray-500 py-10">No reports yet. Be the first!</p>
