@@ -3,6 +3,7 @@ package org.inganji.TerraSustain.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.inganji.TerraSustain.model.Category;
 import org.inganji.TerraSustain.model.DTO.ReportCreation;
 import org.inganji.TerraSustain.model.DTO.ReportResponse;
 import org.inganji.TerraSustain.model.Person;
@@ -34,7 +35,21 @@ public class ReportServiceImp implements ReportService {
         reportFromRequest.setPerson(currentUser);
         reportFromRequest.setSubmittedDate(new Date());
         Report savedReport = issueRepo.save(reportFromRequest);
-        return toDto(savedReport);
+        int currentPoints = currentUser.getPoints();
+        int points = calculatePointsBasedOnStrength(reportFromRequest.getCategory());
+        currentPoints+=points;
+        personRepo.save(currentUser);
+        ReportCreation dto = toDto(savedReport);
+        dto.setEarnedPoints(currentPoints);
+        return dto;
+    }
+    private int calculatePointsBasedOnStrength(Category category){
+        switch (category){
+            case POLLUTION : return 5;
+            case OVEREXPLOITATION : return 10;
+            case HABITAT_DESTRUCTION : return 15;
+            default : return 1;
+        }
     }
     private ReportCreation toDto(Report report) {
         ReportCreation dto = new ReportCreation();

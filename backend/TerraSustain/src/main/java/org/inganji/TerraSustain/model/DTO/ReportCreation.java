@@ -24,4 +24,5 @@ public class ReportCreation {
     @NotNull(message = "please enter the category your report falls")
     private Category category;
     private Date submittedDate;
+    private int earnedPoints;
 }
