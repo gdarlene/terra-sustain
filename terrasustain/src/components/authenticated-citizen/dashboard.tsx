@@ -4,51 +4,51 @@ import SideBar from "./sidebar";
 import CitizenHeader from "./Citizen-header";
 import { UserGroupIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 
-const firstName = localStorage.getItem("firstName");
-const lastName = localStorage.getItem("lastName");
-
 interface DashboardStats {
   totalReports: number;
   ranking: number;
+  name:string;
 }
 
 const CitizenDashboard: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          setError("User not authenticated");
-          return;
-        }
-
-        const res = await axios.get(
-          "http://localhost:8096/terrasustain/citizen/stats",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setStats(res.data);
-      } catch (err: any) {
-        const msg =
-          err.response?.data?.message || err.message || "Failed to load stats";
-        setError(msg);
-      } finally {
-        setLoading(false);
+  setFirstName(localStorage.getItem("firstName") || "");
+  setLastName(localStorage.getItem("lastName") || "");  
+  const fetchStats = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("User not authenticated");
+        return;
       }
-    };
 
-    fetchStats();
-  }, []);
+      const res = await axios.get(
+        "http://localhost:8096/terrasustain/citizen/stats",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-  // Loading UI
+      setStats(res.data);
+    } catch (err: any) {
+      const msg =
+        err.response?.data?.message || err.message || "Failed to load stats";
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchStats();
+}, []);
   if (loading) {
     return (
       <div className="min-h-screen bg-[#fcfff7c6] flex items-center justify-center">
@@ -56,8 +56,6 @@ const CitizenDashboard: React.FC = () => {
       </div>
     );
   }
-
-  // Error UI
   if (error) {
     return (
       <div className="min-h-screen bg-[#fcfff7c6] flex items-center justify-center">
@@ -65,11 +63,8 @@ const CitizenDashboard: React.FC = () => {
       </div>
     );
   }
-
-  // Map the stats for display
   const formattedStats = [
     { name: "Total Reports", value: stats?.totalReports },
-    // { name: "Ranking", value: stats?.ranking },
   ];
 
   return (
