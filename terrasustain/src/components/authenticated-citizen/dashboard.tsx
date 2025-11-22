@@ -16,7 +16,7 @@ const CitizenDashboard: React.FC = () => {
   const [error, setError] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  
+
   useEffect(() => {
   setFirstName(localStorage.getItem("firstName") || "");
   setLastName(localStorage.getItem("lastName") || "");  
@@ -81,7 +81,7 @@ const CitizenDashboard: React.FC = () => {
               Welcome back, {firstName} {lastName}!
             </h1>
             <p className="mt-1 text-lg text-textColor/85 font-body">
-              Give your contribution to sustainability with real time update.
+              Give your contribution to sustainability with real time data.
             </p>
           </div>
 

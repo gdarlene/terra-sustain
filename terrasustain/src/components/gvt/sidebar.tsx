@@ -1,8 +1,10 @@
-import {HomeIcon} from '@heroicons/react/24/outline';
+import {HomeIcon, StarIcon, CurrencyDollarIcon} from '@heroicons/react/24/outline';
 import axios from 'axios';
 const GvtSidebar: React.FC = () => {
   const navItems = [
-    { name: 'Home', icon: HomeIcon, href: '/gvt', current: true },
+    { name: 'Home', icon: HomeIcon, href: '/gvt', current:false},
+    { name: 'Regional Performance', icon: StarIcon, href: '/gvt/regional-performance', current:false},
+    { name: 'Budget Impact', icon: CurrencyDollarIcon, href: '/gvt/budget-impact', current:false},
     ];
 const API_BASE = "http://localhost:8096/terrasustain";
 const handleLogout = async () => {
@@ -31,8 +33,8 @@ const handleLogout = async () => {
                         href={item.href}
                         className={`group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 transition ${
                           item.current
-                            ? 'bg-primary text-white mt-3'
-                            : 'text-neutral-800 hover:bg-neutral1-100 hover:text-primary'
+                            ? 'bg-primary/70 text-white font-semibold mt-3'
+                            : 'hover:bg-primary/70 focus:bg-primary hover:text-semibold hover:text-white'
                         }`}
                       >
                         <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />

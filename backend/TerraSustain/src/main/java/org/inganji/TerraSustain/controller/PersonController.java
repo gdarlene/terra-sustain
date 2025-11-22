@@ -109,6 +109,12 @@ public class PersonController {
         DashboardStatsResponse stats = (personService.getDashboardStats(username));
         return ResponseEntity.ok(stats);
     }
+    @GetMapping("/gvt/stats/")
+    public ResponseEntity<?> getGVTStats(Authentication authentication) {
+        String username = authentication.getName();
+        DashboardStatsResponse stats = (personService.getDashboardStats(username));
+        return ResponseEntity.ok(stats);
+    }
     @GetMapping("/citizen/profile/")
     public ResponseEntity<PersonProfileResponse> getProfile(Authentication authentication) {
         String username = authentication.getName();

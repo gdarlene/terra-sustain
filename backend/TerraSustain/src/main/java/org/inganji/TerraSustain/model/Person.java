@@ -35,4 +35,6 @@ public class Person {
     private String bio;
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private Set<Report> report = new HashSet<>();
+    private Long criticalIssue;
+    private Long resolvedIssue;
 }

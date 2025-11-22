@@ -4,9 +4,6 @@ import { UserGroupIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import GvtHeader from "./Gvt-header";
 import GvtSidebar from "./sidebar";
 
-const firstName = localStorage.getItem("firstName");
-const lastName = localStorage.getItem("lastName");
-
 interface DashboardStats {
   totalReports: number;
   ranking: number;
@@ -16,8 +13,12 @@ const GvtDashboard: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   useEffect(() => {
+    setFirstName(localStorage.getItem("firstName") || "");
+    setLastName(localStorage.getItem("lastName") || "");
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -69,14 +70,11 @@ const GvtDashboard: React.FC = () => {
   // Map the stats for display
   const formattedStats = [
     { name: "Total Reports", value: stats?.totalReports },
-    // { name: "Ranking", value: stats?.ranking },
   ];
-
   return (
     <div className="min-h-screen bg-[#fcfff7c6]">
       <GvtSidebar/>
       <GvtHeader/>
-
       <main className="lg:pl-64">
         <div className="px-4 sm:px-6 lg:px-8 py-8 pb-20 lg:pb-8">
 
@@ -86,7 +84,7 @@ const GvtDashboard: React.FC = () => {
               Welcome back, {firstName} {lastName}!
             </h1>
             <p className="mt-1 text-lg text-textColor/85 font-body">
-              Give your contribution to sustainability with real time update.
+              Give your contribution to sustainability with real time data.
             </p>
           </div>
 
@@ -107,24 +105,15 @@ const GvtDashboard: React.FC = () => {
               </div>
             ))}
           </div>
-
           {/* Quick Actions */}
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a href="/gvt/view-issues">
-              <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white font-medium hover:bg-primary/90 transition shadow-md">
-                <PlusCircleIcon className="h-5 w-5" />
-                View Issues
-              </button>
-            </a>
-
-            <a href="/gvt/view-events">
-              <button className="flex items-center gap-2 rounded-xl border border-primary px-5 py-3 text-primary font-medium hover:bg-primary/50 hover:text-white transition">
-                <UserGroupIcon className="h-5 w-5" />
-                Browse nearby community events
-              </button>
-            </a>
-          </div>
-
+                    <div className="mt-10 flex flex-wrap gap-4">
+                      <a href="/gov/add-resource">
+                        <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white font-medium hover:bg-primary/90 transition shadow-md">
+                          <PlusCircleIcon className="h-5 w-5" />
+                          Add Sustainability Resource
+                        </button>
+                      </a>
+                    </div>
         </div>
       </main>
     </div>

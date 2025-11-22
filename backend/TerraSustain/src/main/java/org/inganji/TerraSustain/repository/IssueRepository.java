@@ -8,8 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IssueRepository extends JpaRepository<Report, Long> {
+    @Query("SELECT COUNT(r) from Person r WHERE r.criticalIssue =:username")
+    Long countCritical(@Param("username") String username);
+    @Query("SELECT COUNT(r) from Person r WHERE r.resolvedIssue =:username")
+    Long countIssuesByTime(@Param("username") String username);
     @Query("SELECT COUNT(r) FROM Report r WHERE r.person.username = :username")
-    long countReportsByUsername(@Param("username") String username);
+    Long countReportsByUsername(@Param("username") String username);
     @Query("SELECT r FROM Report r WHERE LOWER(r.issueDescription) LIKE LOWER(:query) OR LOWER(r.person.username) " +
             "LIKE LOWER(:query) ORDER BY r.submittedDate DESC")
     List<Report> searchReports(@Param("query") String query);

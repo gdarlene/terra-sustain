@@ -58,14 +58,15 @@ public class PersonServiceImpl implements PersonService {
         return res;
     }
     public DashboardStatsResponse getDashboardStats(String username) {
-        long totalReports = issueRepo.countReportsByUsername(username);
-
+        Long totalReports = issueRepo.countReportsByUsername(username);
+        Long criticalIssues = issueRepo.countCritical(username);
+        Long resolvedIssues = issueRepo.countIssuesByTime(username);
         Person person = personRepo.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         int ranking = person.getPoints();
 
-        return new DashboardStatsResponse(totalReports,ranking);
+        return new DashboardStatsResponse(totalReports,ranking,criticalIssues,resolvedIssues);
     }
     @Override
     public void deletePerson(Long id) {}
