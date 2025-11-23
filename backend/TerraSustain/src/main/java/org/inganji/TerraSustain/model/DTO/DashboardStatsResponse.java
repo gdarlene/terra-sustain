@@ -10,6 +10,4 @@ import lombok.NoArgsConstructor;
 public class DashboardStatsResponse {
     private long totalReports;
     private int ranking;
-    private Long criticalIssues;
-    private Long resolvedIssues;
 }
