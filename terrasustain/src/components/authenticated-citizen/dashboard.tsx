@@ -6,7 +6,7 @@ import { UserGroupIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 
 interface DashboardStats {
   totalReports: number;
-  ranking: number;
+  points: number;
   name:string;
 }
 
@@ -65,6 +65,8 @@ const CitizenDashboard: React.FC = () => {
   }
   const formattedStats = [
     { name: "Total Reports", value: stats?.totalReports },
+    { name: "Points Earned", value: stats?.points },
+
   ];
 
   return (

@@ -62,9 +62,9 @@ public class PersonServiceImpl implements PersonService {
         Person person = personRepo.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        int ranking = person.getPoints();
+        int points = person.getPoints();
 
-        return new DashboardStatsResponse(totalReports,ranking);
+        return new DashboardStatsResponse(totalReports,points);
     }
     @Override
     public void deletePerson(Long id) {}

@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DashboardStatsResponse {
     private long totalReports;
-    private int ranking;
+    private int points;
 }

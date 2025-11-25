@@ -11,4 +11,6 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     Optional<Person> findByUsername(String username);
     @Query("SELECT p FROM Person p WHERE p.username = :input OR p.email = :input OR p.phoneNumber = :input")
     Optional<Person> findByUsernameOrPhoneNumberOrEmail(@Param("input") String input);
+    @Query("SELECT COUNT(p) FROM Person p WHERE p.points = :username ")
+    int countPointsByUsername(@Param("username") String username);
 }

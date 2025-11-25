@@ -69,7 +69,6 @@ const NgoDashboard: React.FC = () => {
   // Map the stats for display
   const formattedStats = [
     { name: "Total Reports", value: stats?.totalReports },
-    // { name: "Ranking", value: stats?.ranking },
   ];
 
   return (
