@@ -126,10 +126,9 @@ public class PersonController {
         List<ReportResponse> reports = reportService.getAllReportsForCommunity();
         return ResponseEntity.ok(reports);
     }
-    @GetMapping("/citizen/members")
-    public ResponseEntity<List<UserSummary>> getCommunityMembers() {
-        List<UserSummary> members = personService.getTopActiveCitizens();
-        return ResponseEntity.ok(members);
+    @GetMapping("/citizen/leaderboard")
+    public List<UserSummary> getLeaderboard() {
+        return personService.getLeaderboard();
     }
     @GetMapping("/citizen/search")
     public ResponseEntity<List<ReportResponse>> searchReports(

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Data
@@ -100,18 +101,23 @@ public class PersonServiceImpl implements PersonService {
         res.setBio(person.getBio());
         return res;
     }
-    public List<UserSummary> getTopActiveCitizens() {
-        return personRepo.findAll(PageRequest.of(0, 20, Sort.by("points").descending()))
-                .stream()
-                .map(this::toUserSummary)
-                .collect(Collectors.toList());
-    }
+    public List<UserSummary> getLeaderboard() {
+        List<Person> people = personRepo.findAll(Sort.by(Sort.Direction.DESC, "points"));
+        AtomicInteger rankCounter = new AtomicInteger(1);
+        return people.stream()
+                .map(p -> {
 
-    private UserSummary toUserSummary(Person p) {
-        UserSummary u = new UserSummary();
-        u.setId(p.getId());
-        u.setUsername(p.getUsername());
-        u.setPoints(p.getPoints());
-        return u;
+                    Long totalReports =
+                            issueRepo.countReportsByUsername(p.getUsername());
+                    UserSummary summary = new UserSummary();
+                    summary.setId(p.getId());
+                    summary.setFirstName(p.getFirstName());
+                    summary.setLastName(p.getLastName());
+                    summary.setPoints(p.getPoints());
+                    summary.setTotalReports(totalReports);
+                    summary.setRank(rankCounter.getAndIncrement());
+                    return summary;
+                })
+                .collect(Collectors.toList());
     }
 }

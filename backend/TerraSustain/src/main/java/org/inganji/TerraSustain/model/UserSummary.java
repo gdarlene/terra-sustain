@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserSummary {
         private Long id;
-        private String username;
-        private String province;
+        private String firstName;
+        private String lastName;
         private Integer points;
-        private String avatarUrl;
+        private int rank;
+        private Long totalReports;
 }
