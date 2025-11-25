@@ -27,7 +27,7 @@ const SuccessModal: React.FC<Props> = ({ title, message, onAddAnother, onGoHome 
         <div className="flex flex-col gap-3 mt-4">
           <button
             onClick={onAddAnother}
-            className="w-full bg-primary text-white py-2.5 rounded-lg font-medium hover:bg-hoverGrays/5 transition"
+            className="w-full bg-primary text-white py-2.5 rounded-lg font-medium hover:bg-primary/70 focus:bg-primary/90 transition"
           >
             Add Another {title}
           </button>

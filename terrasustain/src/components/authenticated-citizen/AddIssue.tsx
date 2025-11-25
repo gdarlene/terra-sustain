@@ -267,7 +267,7 @@ const AddIssue: React.FC = () => {
       {showSuccessModal && (
         <SuccessModal
           title="Report Submitted!"
-          message="Thank you for helping protect the environment."
+          message="Thanks For Your Contribution Towards Sustainability!"
           onAddAnother={() => {
             setShowSuccessModal(false);
             setPreview(null);
