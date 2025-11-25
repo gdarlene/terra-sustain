@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { UserGroupIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import GvtHeader from "./Gvt-header";
 import GvtSidebar from "./sidebar";
 
