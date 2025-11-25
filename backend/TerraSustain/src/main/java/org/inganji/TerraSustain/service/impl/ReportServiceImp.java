@@ -38,9 +38,9 @@ public class ReportServiceImp implements ReportService {
         int currentPoints = currentUser.getPoints();
         int points = calculatePointsBasedOnStrength(reportFromRequest.getCategory());
         currentPoints+=points;
+        currentUser.setPoints(currentPoints);
         personRepo.save(currentUser);
         ReportCreation dto = toDto(savedReport);
-        dto.setEarnedPoints(currentPoints);
         return dto;
     }
     private int calculatePointsBasedOnStrength(Category category){
