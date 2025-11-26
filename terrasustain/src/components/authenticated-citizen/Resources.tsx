@@ -7,7 +7,7 @@ return(
     <div className="min-h-screen bg-[#fcfff7c6]">
       <SideBar />
       <CitizenHeader />
-      <main className="px-4 mx-72 max-w-7xl sm:px-6 lg:px-8">
+      <main className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {/* introduction to page */}
         <div className="transition-all duration-700 mt-10">
           <h1 className="text-3xl font-bold text-neutral-800 font-subheading">
@@ -35,7 +35,7 @@ return(
               </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <img src="/images/common future.png" alt="our common future book" />
+              <img src="/images/afforestation-impact.png" alt="our common future book" />
               <a
                 href="https://www.diva-portal.org/smash/get/diva2:702668/FULLTEXT01.pdf"
                 download
