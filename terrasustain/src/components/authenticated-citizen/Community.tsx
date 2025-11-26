@@ -120,7 +120,6 @@ const CommunityPage: React.FC = () => {
                   <div key={report.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div className="p-6">
                       <div className="flex items-center mb-4">
-                        <div className="w-12 h-12 bg-gray-300 rounded-full mr-4" />
                         <div>
                           <h3 className="font-bold text-lg">{report.username}</h3>
                           <p className="text-sm text-gray-500">
