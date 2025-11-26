@@ -41,7 +41,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path= '/ngo' element ={<NgoDashboard/>}/>
         </Route>
         {/* Standalone routes (no header/details) */}
-        <Route path='/role' element={<RoleSelector isOpen={true} onClose={() => console.log(" selector closed")}/>}/>
+        <Route path='/role' element={<RoleSelector />}/>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<SignupPage />} />
       </Routes>
