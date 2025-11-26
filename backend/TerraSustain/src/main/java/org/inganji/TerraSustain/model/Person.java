@@ -37,4 +37,6 @@ public class Person {
     private Set<Report> report = new HashSet<>();
     private Long criticalIssue;
     private Long resolvedIssue;
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Badge badge;
 }

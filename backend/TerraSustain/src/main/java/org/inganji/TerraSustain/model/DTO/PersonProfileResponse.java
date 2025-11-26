@@ -16,4 +16,8 @@ public class PersonProfileResponse {
     private String gender;
     private String role;
     private String bio;
+    private String badge;
+    private String nextBadge;
+    private int pointsToNextBadge;
+    private int points;
 }

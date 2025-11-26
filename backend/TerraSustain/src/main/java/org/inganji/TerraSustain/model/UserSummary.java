@@ -14,4 +14,5 @@ public class UserSummary {
         private Integer points;
         private int rank;
         private Long totalReports;
+        private String badge;
 }

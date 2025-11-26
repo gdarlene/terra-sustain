@@ -73,7 +73,6 @@ const CitizenDashboard: React.FC = () => {
     <div className="min-h-screen bg-[#fcfff7c6]">
       <SideBar />
       <CitizenHeader />
-
       <main className="lg:pl-64">
         <div className="px-4 sm:px-6 lg:px-8 py-8 pb-20 lg:pb-8">
 
@@ -104,7 +103,6 @@ const CitizenDashboard: React.FC = () => {
               </div>
             ))}
           </div>
-
           {/* Quick Actions */}
           <div className="mt-10 flex flex-wrap gap-4">
             <a href="/citizen/add_issue">

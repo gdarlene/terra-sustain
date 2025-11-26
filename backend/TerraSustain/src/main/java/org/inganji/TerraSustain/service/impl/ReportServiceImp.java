@@ -8,8 +8,10 @@ import org.inganji.TerraSustain.model.DTO.ReportCreation;
 import org.inganji.TerraSustain.model.DTO.ReportResponse;
 import org.inganji.TerraSustain.model.Person;
 import org.inganji.TerraSustain.model.Report;
+import org.inganji.TerraSustain.repository.BadgeRepository;
 import org.inganji.TerraSustain.repository.IssueRepository;
 import org.inganji.TerraSustain.repository.PersonRepository;
+import org.inganji.TerraSustain.service.BadgeService;
 import org.inganji.TerraSustain.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,6 +32,8 @@ public class ReportServiceImp implements ReportService {
     private PersonRepository personRepo;
     @Autowired
     private IssueRepository issueRepo;
+    @Autowired
+    private BadgeService badgeService;
     public ReportCreation createReport(Report reportFromRequest) {
         Person currentUser = getCurrentAuthenticatedPerson();
         reportFromRequest.setPerson(currentUser);
@@ -41,6 +45,7 @@ public class ReportServiceImp implements ReportService {
         currentUser.setPoints(currentPoints);
         personRepo.save(currentUser);
         ReportCreation dto = toDto(savedReport);
+        badgeService.updateBadgeIfNeeded(currentUser);
         return dto;
     }
     private int calculatePointsBasedOnStrength(Category category){

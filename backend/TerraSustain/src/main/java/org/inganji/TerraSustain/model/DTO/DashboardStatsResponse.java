@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 public class DashboardStatsResponse {
     private long totalReports;
     private int points;
+    private String badge;
+    private int pointsToNextBadge;
+    private String nextBadge;
 }

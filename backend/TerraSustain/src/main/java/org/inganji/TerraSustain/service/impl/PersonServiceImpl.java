@@ -3,9 +3,12 @@ package org.inganji.TerraSustain.service.impl;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.inganji.TerraSustain.model.Badge;
+import org.inganji.TerraSustain.model.BadgeCategory;
 import org.inganji.TerraSustain.model.DTO.*;
 import org.inganji.TerraSustain.model.Person;
 import org.inganji.TerraSustain.model.UserSummary;
+import org.inganji.TerraSustain.repository.BadgeRepository;
 import org.inganji.TerraSustain.repository.IssueRepository;
 import org.inganji.TerraSustain.repository.PersonRepository;
 import org.inganji.TerraSustain.service.PersonService;
@@ -34,6 +37,8 @@ public class PersonServiceImpl implements PersonService {
     private PasswordEncoder encoder;
     @Autowired
     private PersonRepository personRepo;
+    @Autowired
+    private final BadgeRepository badgeRepository;
     @Transactional
     @Override
     public RegisterResponse createPerson(RegisterRequest registerRequest) {
@@ -59,13 +64,23 @@ public class PersonServiceImpl implements PersonService {
         return res;
     }
     public DashboardStatsResponse getDashboardStats(String username) {
-        Long totalReports = issueRepo.countReportsByUsername(username);
         Person person = personRepo.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        Long totalReports = issueRepo.countReportsByUsername(username);
         int points = person.getPoints();
 
-        return new DashboardStatsResponse(totalReports,points);
+        Badge badge = person.getBadge();
+        BadgeCategory current = badge != null ? badge.getCategory() : BadgeCategory.BRONZE;
+        BadgeCategory next = BadgeCategory.getNextBadge(points);
+
+        return new DashboardStatsResponse(
+                totalReports,
+                points,
+                current.name(),
+                next != null ? next.getMinPoints() - points : 0,
+                next != null ? next.name() : "MAX LEVEL"
+        );
     }
     @Override
     public void deletePerson(Long id) {}
@@ -99,16 +114,29 @@ public class PersonServiceImpl implements PersonService {
         res.setPhoneNumber(person.getPhoneNumber());
         res.setEmail(person.getEmail());
         res.setBio(person.getBio());
+        res.setPoints(person.getPoints());
+
+        Badge badge = person.getBadge();
+        BadgeCategory current = badge != null ? badge.getCategory() : BadgeCategory.BRONZE;
+        BadgeCategory next = BadgeCategory.getNextBadge(person.getPoints());
+
+        res.setBadge(current.name());
+        res.setNextBadge(next != null ? next.name() : "MAX LEVEL");
+        res.setPointsToNextBadge(next != null ? next.getMinPoints() - person.getPoints() : 0);
+
         return res;
     }
+
     public List<UserSummary> getLeaderboard() {
         List<Person> people = personRepo.findAll(Sort.by(Sort.Direction.DESC, "points"));
         AtomicInteger rankCounter = new AtomicInteger(1);
+
         return people.stream()
                 .map(p -> {
+                    Long totalReports = issueRepo.countReportsByUsername(p.getUsername());
+                    Badge badge = p.getBadge();
+                    BadgeCategory category = badge != null ? badge.getCategory() : BadgeCategory.BRONZE;
 
-                    Long totalReports =
-                            issueRepo.countReportsByUsername(p.getUsername());
                     UserSummary summary = new UserSummary();
                     summary.setId(p.getId());
                     summary.setFirstName(p.getFirstName());
@@ -116,6 +144,7 @@ public class PersonServiceImpl implements PersonService {
                     summary.setPoints(p.getPoints());
                     summary.setTotalReports(totalReports);
                     summary.setRank(rankCounter.getAndIncrement());
+                    summary.setBadge(category.name());  // Show badge on leaderboard!
                     return summary;
                 })
                 .collect(Collectors.toList());

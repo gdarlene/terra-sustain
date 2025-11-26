@@ -24,7 +24,7 @@ const handleLogout = async () => {
           <nav className="flex flex-1 flex-col">
             {/* logo */}
             <div className="py-8 items-center">
-              <span className='ml-0 text-2xl font-logo font-bold text-primary'><a href="/farmer">TerraSustain</a></span>
+              <span className='ml-0 text-2xl font-logo font-bold text-primary'><a href="/citizen">TerraSustain</a></span>
             </div>
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>

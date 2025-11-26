@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.inganji.TerraSustain.model.BadgeCategory;
 import org.inganji.TerraSustain.model.Category;
 import org.inganji.TerraSustain.model.Person;
 
@@ -25,4 +26,5 @@ public class ReportCreation {
     private Category category;
     private Date submittedDate;
     private int earnedPoints;
+    private BadgeCategory badgeCategory;
 }
