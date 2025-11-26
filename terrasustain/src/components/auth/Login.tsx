@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthCard } from './AuthCard';
 import axios from 'axios';
-import  type {AxiosResponse}  from 'axios';
+import type { AxiosResponse } from 'axios';
 
 interface SignInResponse {
   token: string;
@@ -33,32 +33,25 @@ const LoginPage: React.FC = () => {
         username,
         password,
       });
-      // Validation response data
+
       if (!response.data || !response.data.token) {
         setError('Invalid response from server');
         return;
       }
+
       const { token, username: resUsername, firstName, lastName, role } = response.data;
+
       localStorage.setItem('token', token);
       localStorage.setItem('username', resUsername);
       localStorage.setItem('firstName', firstName);
       localStorage.setItem('lastName', lastName);
-      localStorage.setItem('role', role);    
-      try{  
-        if(role == "CITIZEN"){
-        navigate('/citizen');
-        }
-        else if(role == "NGO"){
-          navigate('/ngo')
-        }
-        else if(role == "GOVERNMENT_PERSONAL"){
-          navigate("/gov")
-        }
-        
-      } catch(err:any){
-        console.error('role identification error', err.response || err);
-        
-      } 
+      localStorage.setItem('role', role);
+
+      // Navigate based on role
+      if (role === 'CITIZEN') navigate('/citizen');
+      else if (role === 'NGO') navigate('/ngo');
+      else if (role === 'GOVERNMENT_PERSONAL') navigate('/gov');
+      else setError('Unknown role, cannot navigate');
     } catch (err: any) {
       console.error('Login error:', err.response || err);
       setError(err.response?.data?.message || 'Invalid username or password!');
@@ -81,24 +74,25 @@ const LoginPage: React.FC = () => {
         </>
       }
     >
-      {error && (
-        <p className="text-red-600 text-sm text-center">{error}</p>
-      )}
+      {/* Error Message */}
+      {error && <p className="text-red-600 text-sm text-center">{error}</p>}
 
+      {/* Username Input */}
       <input
         type="text"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+        className="w-full px-4 py-3 sm:py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary transition"
       />
 
+      {/* Password Input */}
       <input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+        className="w-full px-4 py-3 sm:py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary transition"
       />
     </AuthCard>
   );

@@ -4,6 +4,7 @@ import CitizenHeader from './Citizen-header';
 import axios from 'axios';
 import { Search } from '@mui/icons-material';
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
+
 interface ReportResponse {
   id: number;
   issueDescription: string;
@@ -28,11 +29,10 @@ const CommunityPage: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const [reportsRes] = await Promise.all([
-        axios.get('http://localhost:8096/terrasustain/citizen/reports', {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-      ]);
+      const reportsRes = await axios.get(
+        'http://localhost:8096/terrasustain/citizen/reports',
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
       setReports(reportsRes.data);
     } catch (err) {
@@ -60,11 +60,10 @@ const CommunityPage: React.FC = () => {
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      searchReports();
-    }, 500); // debounce
+    const timeout = setTimeout(() => searchReports(), 500);
     return () => clearTimeout(timeout);
   }, [searchTerm]);
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
@@ -89,75 +88,73 @@ const CommunityPage: React.FC = () => {
             Community Hub
           </h1>
 
-         <div className='flex'>
-            {/* Search */}
-            <input
-              type="text"
-              placeholder="Search reports or citizens..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-4 mb-10 rounded-lg border border-gray-300 text-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-            />
-              <Search className='text-primary !w-7 !h-7 -mx-11 mt-4'/>
-          </div>
-          {/* actions */}
-          <div >
-            <a href="/citizen/add_issue">
-              <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white font-medium hover:bg-primary/90transition shadow-md">
+          {/* Search & Action Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Search reports or citizens..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full p-4 rounded-lg border border-gray-300 text-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+              <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-primary text-lg" />
+            </div>
+            <a href="/citizen/add_issue" className="flex-shrink-0">
+              <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-white font-medium hover:bg-primary/90 transition shadow-md w-full sm:w-auto justify-center">
                 <PlusCircleIcon className="h-5 w-5" />
                 Add Issue
               </button>
             </a>
           </div>
+
           {/* Reports Feed */}
-          <section className='mt-7'>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Recent Environment Posts from other peers</h2>
+          <section className="mt-7">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Recent Environment Posts from peers</h2>
             <div className="space-y-8">
               {reports.length === 0 ? (
                 <p className="text-center text-gray-500 py-10">No reports yet. Be the first!</p>
               ) : (
                 reports.map(report => (
                   <div key={report.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div className="p-6">
-                      <div className="flex items-center mb-4">
-                        <div>
-                          <h3 className="font-bold text-lg">{report.username}</h3>
-                          <p className="text-sm text-gray-500">
-                            {report.province} • {formatDate(report.submittedDate)}
-                          </p>
-                        </div>
+                    <div className="p-6 flex flex-col md:flex-row md:gap-6">
+                      {/* Left: User info */}
+                      <div className="mb-4 md:mb-0 flex-shrink-0">
+                        <h3 className="font-bold text-lg">{report.username}</h3>
+                        <p className="text-sm text-gray-500">
+                          {report.province} • {formatDate(report.submittedDate)}
+                        </p>
                       </div>
 
-                      <p className="text-gray-800 mb-4 leading-relaxed">
-                        {report.issueDescription}
-                      </p>
+                      {/* Right: Report content */}
+                      <div className="flex-1">
+                        <p className="text-gray-800 mb-4 leading-relaxed">
+                          {report.issueDescription}
+                        </p>
 
-                      {report.mediaUrl && (
-                        <div className="mb-4 -mx-6">
-                          {report.mediaUrl.includes('video') ? (
-                            <video controls className="w-full">
-                              <source src={report.mediaUrl} />
-                            </video>
-                          ) : (
-                            <img
-                              src={report.mediaUrl}
-                              alt="Environmental issue"
-                              className="w-full h-96 object-cover"
-                            />
-                          )}
+                        {report.mediaUrl && (
+                          <div className="mb-4 w-full">
+                            {report.mediaUrl.includes('video') ? (
+                              <video controls className="w-full max-h-96 rounded-lg">
+                                <source src={report.mediaUrl} />
+                              </video>
+                            ) : (
+                              <img
+                                src={report.mediaUrl}
+                                alt="Environmental issue"
+                                className="w-full max-h-96 object-cover rounded-lg"
+                              />
+                            )}
+                          </div>
+                        )}
+
+                        <div className="flex flex-wrap justify-between items-center pt-4 border-t text-sm text-gray-600 gap-2">
+                          <span>{report.likes} likes</span>
+                          <span>{report.comments} comments</span>
+                          <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
+                            {report.category.replace('_', ' ')}
+                          </span>
                         </div>
-                      )}
-
-                      <div className="flex justify-between items-center pt-4 border-t">
-                        <span className="text-gray-600">
-                          {report.likes} likes
-                        </span>
-                        <span className="text-gray-600">
-                          {report.comments} comments
-                        </span>
-                        <span className="text-sm bg-green-100 text-green-800 px-3 py-1 rounded-full">
-                          {report.category.replace('_', ' ')}
-                        </span>
                       </div>
                     </div>
                   </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 
 type Props = {
-  logo:string;
+  logo: string;
   title: string;
-  paragraph:string;
+  paragraph: string;
   children: React.ReactNode;
   onSubmit: (e: React.FormEvent) => void;
   submitText: string;
@@ -20,33 +20,41 @@ export const AuthCard: React.FC<Props> = ({
   footer,
 }) => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
-        <div className='logo mb-5 text-center'>
-          <h1 className=' text-primary font-extrabold text-3xl'>
+        {/* Logo */}
+        <div className='logo mb-6 text-center'>
+          <h1 className='text-primary font-extrabold text-3xl sm:text-4xl'>
             {logo}
           </h1>
         </div>
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-5">
+
+        {/* Card */}
+        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10 transition-transform transform hover:scale-[1.02]">
+          {/* Title */}
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-gray-900 mb-4 sm:mb-5">
             {title}
           </h2>
-          <p className='font-medium text-center text-gray-600 mb-5'>
+
+          {/* Paragraph */}
+          <p className='font-medium text-center text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base'>
             {paragraph}
           </p>
 
-          <form onSubmit={onSubmit} className="space-y-5">
+          {/* Form */}
+          <form onSubmit={onSubmit} className="space-y-4 sm:space-y-5">
             {children}
 
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-secondary text-[#fbfff5] shadow focus:bg-secondary/90 hover:bg-secondary/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary font-medium rounded-md transition"
+              className="w-full py-3 sm:py-3.5 px-4 bg-secondary text-[#fbfff5] shadow hover:bg-secondary/80 focus:bg-secondary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary font-medium rounded-md transition"
             >
               {submitText}
             </button>
           </form>
 
-          {footer && <div className="mt-6 text-center text-sm">{footer}</div>}
+          {/* Footer */}
+          {footer && <div className="mt-6 text-center text-sm text-gray-500">{footer}</div>}
         </div>
       </div>
     </div>

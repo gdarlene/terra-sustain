@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SideBar from "./sidebar";
 import CitizenHeader from "./Citizen-header";
+
 interface DashboardStats {
   totalReports: number;
   points: number;
-  badge: string;           
+  badge: string;
   pointsToNextBadge: number;
-  nextBadge: string; 
+  nextBadge: string;
 }
 
 interface LeaderboardUser {
@@ -39,30 +40,25 @@ const Performance: React.FC = () => {
           setError("Please log in to view your performance");
           return;
         }
-        // Fetch dashboard stats
+
         const statsRes = await axios.get(
           "http://localhost:8096/terrasustain/citizen/stats",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setStats(statsRes.data);
 
-        // Fetch leaderboard
         const leaderboardRes = await axios.get(
           "http://localhost:8096/terrasustain/citizen/leaderboard",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setLeaderboard(leaderboardRes.data);
 
-        // Find current user's rank
         const me = leaderboardRes.data.find(
-          (user: LeaderboardUser) =>
-            user.firstName.toLowerCase() === name.toLowerCase()
+          (user: LeaderboardUser) => user.firstName.toLowerCase() === name.toLowerCase()
         );
         if (me) setMyRank(me.rank);
       } catch (err: any) {
-        const msg =
-          err.response?.data?.message || err.message || "Failed to load data";
-        setError(msg);
+        setError(err.response?.data?.message || err.message || "Failed to load data");
       } finally {
         setLoading(false);
       }
@@ -71,14 +67,13 @@ const Performance: React.FC = () => {
     fetchData();
   }, []);
 
-  // badge color and emoji
   const getBadgeStyle = (badge: string) => {
     switch (badge) {
-      case "BRONZE":   return { color: "#CD7F32", emoji: "🥉" };
-      case "SILVER":   return { color: "#C0C0C0", emoji: "🥈" };
-      case "GOLD":     return { color: "#FFD700", emoji: "🥇" };
-      case "PLATINUM": return { color: "#E5E4E2", emoji: "Platinum", glow: true };
-      default:         return { color: "#94a3b8", emoji: "Newbie" };
+      case "BRONZE": return { color: "#CD7F32", emoji: "🥉" };
+      case "SILVER": return { color: "#C0C0C0", emoji: "🥈" };
+      case "GOLD": return { color: "#FFD700", emoji: "🥇" };
+      case "PLATINUM": return { color: "#E5E4E2", emoji: "🏆", glow: true };
+      default: return { color: "#94a3b8", emoji: "Newbie" };
     }
   };
 
@@ -102,146 +97,113 @@ const Performance: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#fcfff7c6]">
+      {/* Sidebar for large screens */}
       <SideBar />
       <CitizenHeader />
+      
+      {/* Main content */}
+      <div className="flex-1 lg:ml-28 w-full">
+        <main className="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6">
+          {/* Page title */}
+          <div className="text-center sm:text-left mt-4 sm:mt-6">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-800">
+              My Performance
+            </h1>
+            <p className="mt-1 sm:mt-2 text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl">
+              Track your impact, climb the ranks, and earn prestigious badges!
+            </p>
+          </div>
 
-      <main className="px-4 mx-72 max-w-7xl sm:px-6 lg:px-8">
-        {/* PAGE TITLE */}
-        <div className="transition-all duration-700 mt-10">
-          <h1 className="text-4xl font-bold text-neutral-800 font-subheading">
-            My Performance
-          </h1>
-          <p className="mt-2 text-lg text-gray-600">
-            Track your impact, climb the ranks, and earn prestigious badges!
-          </p>
-        </div>
-
-        {/* USER STATS GRID */}
-        <section className="mt-10">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {/* Points */}
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition">
-              <h3 className="text-xl mt-5 font-semibold text-gray-700">Total Points</h3>
-              <p className="text-5xl font-bold text-[#768600] mt-3">{stats.points}</p>
+          {/* User Stats Grid */}
+          <section className="mt-6 sm:mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+            <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center hover:scale-105 transform transition duration-200">
+              <h3 className="text-xs sm:text-sm lg:text-lg font-semibold text-gray-700">Total Points</h3>
+              <p className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#768600] mt-2 sm:mt-3">{stats.points}</p>
             </div>
-
-            {/* Reports */}
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition">
-              <h3 className="text-xl mt-3  font-semibold text-gray-700">Reports</h3>
-              <p className="text-5xl font-bold text-[#768600] mt-3">{stats.totalReports}</p>
+            <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center hover:scale-105 transform transition duration-200">
+              <h3 className="text-xs sm:text-sm lg:text-lg font-semibold text-gray-700">Reports</h3>
+              <p className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#768600] mt-2 sm:mt-3">{stats.totalReports}</p>
             </div>
-
-            {/* Rank */}
-            <div className="bg-white p-8 items-center rounded-2xl shadow-lg text-center transform hover:scale-105 transition">
-              <h3 className="text-xl mt-3 font-semibold text-gray-700">Rank</h3>
-              <p className="text-5xl font-bold text-[#768600] mt-3">
-                {myRank ? `${myRank}` : "—"}
-              </p>
+            <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center hover:scale-105 transform transition duration-200">
+              <h3 className="text-xs sm:text-sm lg:text-lg font-semibold text-gray-700">Rank</h3>
+              <p className="text-2xl sm:text-3xl lg:text-5xl font-bold text-[#768600] mt-2 sm:mt-3">{myRank ?? "—"}</p>
             </div>
-
-            {/* Badge */}
-            <div className="bg-white p-8 rounded-2xl shadow-lg text-center transform hover:scale-105 transition">
-              <h3 className="text-xl font-semibold text-gray-700 mb-3">Current Badge</h3>
+            <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg text-center hover:scale-105 transform transition duration-200">
+              <h3 className="text-xs sm:text-sm lg:text-lg font-semibold text-gray-700 mb-2 sm:mb-3">Current Badge</h3>
               <div className="flex flex-col items-center">
                 <div
-                  className={`text-6xl mb-3 ${badgeStyle.glow ? "animate-pulse" : ""}`}
-                  style={{ filter: badgeStyle.glow ? "drop-shadow(0 0 10px gold)" : "" }}
+                  className={`text-3xl sm:text-4xl lg:text-6xl mb-2 sm:mb-3 ${badgeStyle.glow ? "animate-pulse" : ""}`}
+                  style={{ filter: badgeStyle.glow ? "drop-shadow(0 0 8px gold)" : "" }}
                 >
                   {badgeStyle.emoji}
                 </div>
-                <p
-                  className="text-3xl font-bold"
-                  style={{ color: badgeStyle.color }}
-                >
+                <p className="text-lg sm:text-xl lg:text-3xl font-bold" style={{ color: badgeStyle.color }}>
                   {stats.badge}
                 </p>
               </div>
             </div>
-          </div>
+          </section>
 
-          {/* Progress to Next Badge */}
-          {/* {stats.nextBadge !== "MAX LEVEL" && (
-            <div className="mt-10 bg-gradient-to-r from-green-50 to-blue-50 p-8 rounded-2xl shadow-md">
-              <h3 className="text-2xl font-bold text-green-800 mb-4">
-                Next Badge: <span className="text-[#888888]">{stats.nextBadge}</span>
-              </h3>
-              <div className="w-full bg-gray-200 rounded-full h-8 overflow-hidden">
-                <div
-                  className="bg-gradient-to-r from-green-500 to-[#688a51cb] h-full transition-all duration-1000"
-                  style={{
-                    width: `${Math.min(
-                      100,
-                      ((stats.points % 100) / (stats.pointsToNextBadge || 100)) * 100
-                    )}%`,
-                  }}
-                />
-              </div>
-              <p className="mt-3 text-lg font-medium text-gray-700">
-                {stats.pointsToNextBadge} points needed
-              </p>
+          {/* Next Badge Progress */}
+          <div className="mt-4 sm:mt-6 bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-md sm:shadow-lg">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-700">Next Badge: {stats.nextBadge}</h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-2">
+              You need <strong>{stats.pointsToNextBadge}</strong> more points.
+            </p>
+            <div className="w-full bg-gray-300 rounded-full h-2 sm:h-2.5">
+              <div
+                className="h-2 sm:h-2.5 rounded-full bg-green-700"
+                style={{ width: `${Math.min(100, (stats.points / (stats.points + stats.pointsToNextBadge)) * 100)}%` }}
+              ></div>
             </div>
-          )} */}
-        </section>
-
-        {/* LEADERBOARD */}
-        <section className="mt-16">
-          <h2 className="text-3xl font-bold text-green-800 mb-6">Leaderboard</h2>
-
-          <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
-            <table className="min-w-full">
-              <thead>
-                <tr className="bg-green-600/90 text-white">
-                  <th className="py-3 px-4 text-left">Rank</th>
-                  <th className="py-3 px-4 text-left">Name</th>
-                  <th className="py-3 px-4 text-left">Badge</th>
-                  <th className="py-3 px-4 text-left">Points</th>
-                  <th className="py-3 px-4 text-left">Reports</th>
-                </tr>
-              </thead>
-              <tbody>
-                {leaderboard.slice(0, 20).map((user) => {
-                  const isMe = user.firstName.toLowerCase() === firstName.toLowerCase();
-                  const userBadge = getBadgeStyle(user.badge);
-
-                  return (
-                    <tr
-                      key={user.id}
-                      className={`border-b transition-all ${
-                        isMe
-                          ? "bg-green-100 font-bold text-green-900 scale-105"
-                          : "hover:bg-gray-50"
-                      }`}
-                    >
-                      <td className="py-5 px-6">
-                        {user.rank <= 3 ? (
-                          <span className="text-lg mx-6">
-                            {user.rank === 1 && "1"}
-                            {user.rank === 2 && "2nd"}
-                            {user.rank === 3 && "3rd"}
-                          </span>
-                        ) : (
-                          `#${user.rank}`
-                        )}
-                      </td>
-                      <td className="py-5 px-6">
-                        {user.firstName} {user.lastName}
-                        {isMe && " (You)"}
-                      </td>
-                      <td className="py-5 px-6">
-                        <span style={{ color: userBadge.color }}>
-                          {userBadge.emoji} {user.badge}
-                        </span>
-                      </td>
-                      <td className="py-5 px-6 font-semibold">{user.points}</td>
-                      <td className="py-5 px-6">{user.totalReports}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
           </div>
-        </section>
-      </main>
+
+          {/* Leaderboard */}
+          <section className="mt-6 sm:mt-8">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-green-800 mb-3 sm:mb-4">Leaderboard</h2>
+            <div className="overflow-x-auto rounded-lg sm:rounded-xl">
+              <table className="min-w-full bg-white shadow-sm sm:shadow rounded-lg sm:rounded-xl">
+                <thead>
+                  <tr className="bg-green-600/90 text-white text-xs sm:text-sm lg:text-base">
+                    <th className="py-2 px-2 sm:px-3 lg:px-4 text-left whitespace-nowrap">Rank</th>
+                    <th className="py-2 px-2 sm:px-3 lg:px-4 text-left whitespace-nowrap">Name</th>
+                    <th className="py-2 px-2 sm:px-3 lg:px-4 text-left whitespace-nowrap hidden xs:table-cell">Badge</th>
+                    <th className="py-2 px-2 sm:px-3 lg:px-4 text-left whitespace-nowrap">Points</th>
+                    <th className="py-2 px-2 sm:px-3 lg:px-4 text-left whitespace-nowrap hidden sm:table-cell">Reports</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {leaderboard.slice(0, 20).map((user) => {
+                    const isMe = user.firstName.toLowerCase() === firstName.toLowerCase();
+                    const userBadge = getBadgeStyle(user.badge);
+                    return (
+                      <tr
+                        key={user.id}
+                        className={`border-b transition-all text-xs sm:text-sm lg:text-base ${
+                          isMe ? "bg-green-100 font-bold text-green-900" : "hover:bg-gray-50 text-gray-700"
+                        }`}
+                      >
+                        <td className="py-2 px-2 sm:px-3 lg:px-4 whitespace-nowrap">
+                          {user.rank <= 3 ? user.rank : `#${user.rank}`}
+                        </td>
+                        <td className="py-2 px-2 sm:px-3 lg:px-4 whitespace-nowrap truncate max-w-[80px] sm:max-w-none">
+                          {user.firstName} {user.lastName}{isMe && " (You)"}
+                        </td>
+                        <td className="py-2 px-2 sm:px-3 lg:px-4 whitespace-nowrap hidden xs:table-cell" style={{ color: userBadge.color }}>
+                          <span className="hidden xs:inline">{userBadge.emoji} </span>
+                          <span className="hidden sm:inline">{user.badge}</span>
+                        </td>
+                        <td className="py-2 px-2 sm:px-3 lg:px-4 whitespace-nowrap font-semibold">{user.points}</td>
+                        <td className="py-2 px-2 sm:px-3 lg:px-4 whitespace-nowrap hidden sm:table-cell">{user.totalReports}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
