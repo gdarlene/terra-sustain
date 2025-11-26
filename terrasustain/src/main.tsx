@@ -7,6 +7,7 @@ import LoginPage from './components/auth/Login';
 import SignupPage from './components/auth/Register';
 import Profile from './components/authenticated-citizen/profile';
 import './styles/animations.css';
+import CommunityEvents from './components/authenticated-citizen/NearByEvents';
 // layouts
 import MainLayout from './layouts/MainLayout';
 import AboutPage from './components/unauthenticated/about';
@@ -35,6 +36,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path= '/citizen/community' element ={<CommunityPage/>}/>
           <Route path= '/citizen/resources' element ={<Resources/>}/>
           <Route path= '/citizen/performance' element ={<Performance/>}/>
+          <Route path= '/citizen/community-events' element ={<CommunityEvents/>}/>
           <Route path= '/gov' element ={<GvtDashboard/>}/>
           <Route path= '/ngo' element ={<NgoDashboard/>}/>
         </Route>
