@@ -14,9 +14,10 @@ const CommunityEvents:React.FC = () =>{
           <h2 className="text-2xl font-bold text-neutral-800 font-subheading mb-4">
             View and Browse Community Events
           </h2>
-          <p className="text-lg text-gray-600 font-body mb-6">
-            Coming soon: View, attend global and local events with like minded individuals and discuss mindful events about sustainability
+          <p className="text-lg text-[#607866] font-semibold font-body mb-6">
+            View, attend global and local events with like minded individuals and discuss mindful events about sustainability
           </p>
+          <img src="/images/coming-soon.png" className="w-[70%] align-middle lg:ml-40" alt="feature coming soon alert" />
         </section>
         </div>
       </main>
