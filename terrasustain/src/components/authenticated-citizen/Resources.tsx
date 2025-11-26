@@ -11,19 +11,14 @@ return(
         {/* introduction to page */}
         <div className="transition-all duration-700 mt-10">
           <h1 className="text-3xl font-bold text-neutral-800 font-subheading">
-            Resources for Sustainability practice
+            Sustainability Awareness Resources
           </h1>
           <p className="mt-2 text-lg text-gray-600 font-body">
-            Widen your knowledge about the different ways to promote sustainability through text or visual resources.
+            Broaden your knowledge about the different ways to promote sustainability through text or visual resources.
           </p>
         </div>
-
-        <div className="grid grid-cols-2">
-        </div>
-
         {/* Books Section - Downloadable PDFs */}
-
-        <section className="mt-12">
+        <section className="mt-6">
           <h2 className="text-2xl font-bold text-neutral-800 font-subheading mb-4">
             Books & PDFs
           </h2>
@@ -32,6 +27,18 @@ return(
               <img src="/images/common future.png" alt="our common future book" />
               <a
                 href="https://sustainabledevelopment.un.org/content/documents/5987our-common-future.pdf"
+                download
+                className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+                target="_blank"
+              >
+                Download PDF
+              </a>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <img src="/images/common future.png" alt="our common future book" />
+              <a
+                href="https://www.diva-portal.org/smash/get/diva2:702668/FULLTEXT01.pdf"
                 download
                 className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
                 target="_blank"
