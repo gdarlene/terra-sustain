@@ -7,7 +7,7 @@ return(
     <div className="min-h-screen bg-[#fcfff7c6]">
       <SideBar />
       <CitizenHeader />
-      <main className="px-4 mx-72 w-full sm:px-6 lg:px-8">
+      <main className="px-4 mx-72 max-w-7xl sm:px-6 lg:px-8">
         {/* introduction to page */}
         <div className="transition-all duration-700 mt-10">
           <h1 className="text-3xl font-bold text-neutral-800 font-subheading">
@@ -28,7 +28,7 @@ return(
               <a
                 href="https://sustainabledevelopment.un.org/content/documents/5987our-common-future.pdf"
                 download
-                className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+                className="w-full h-auto max-w-full object-contain mb-4 mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
                 target="_blank"
               >
                 Download PDF
@@ -39,7 +39,7 @@ return(
               <a
                 href="https://www.diva-portal.org/smash/get/diva2:702668/FULLTEXT01.pdf"
                 download
-                className="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+                className="w-full h-auto max-w-full object-contain mb-4 mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
                 target="_blank"
               >
                 Download PDF
@@ -50,7 +50,7 @@ return(
               <a
                 href="https://www.fao.org/4/ar113e/ar113e.pdf"
                 download
-                className="mt-10 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+                className="w-full h-auto max-w-full object-contain mb-4 mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
                 target="_blank"
               >
                 Download PDF
@@ -69,7 +69,7 @@ return(
           </p>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <img src="/images/trees-planting.png" alt="people planting trees" />         
+              <img src="/images/trees-planting.png" alt="people planting trees" className="w-full h-auto max-w-full object-contain mb-4 mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700" />         
               <h3 className="text-xl font-semibold mb-2">How Rwanda's Young Innovators Are Building A Circular Economy</h3>
               <p className="text-gray-600 mb-4">Focus on reduce, reuse, recycle systems in Rwanda.</p>
               <a
@@ -100,7 +100,7 @@ return(
                 rel="noopener noreferrer"
                 className="inline-block mr-2"
               >
-                <img src="/images/stop-deforestation.png" alt="video on deforestaion" />
+                <img src="/images/stop-deforestation.png" alt="video on deforestaion" className="w-full h-auto max-w-full object-contain mb-4 mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700" />
                 <h3 className="text-xl mt-3 font-semibold mb-2">Can Money Stop Deforestation?</h3>
                 <p className="text-gray-600 mb-4">A grasp of stopping deforestion.</p>
               </a>
