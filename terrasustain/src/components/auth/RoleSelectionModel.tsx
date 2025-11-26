@@ -26,7 +26,7 @@ return(
             <span className="text-2xl">&times;</span>
         </CloseButton>
 
-          <label className="flex items-center text-lg font-sans font-medium">
+          {/* <label className="flex items-center text-lg font-sans font-medium">
             <input
               type="radio"
               name="role"
@@ -36,7 +36,7 @@ return(
               className="mr-2"
             />
             Gov
-          </label>
+          </label> */}
           <label className="flex items-center text-lg  font-sans font-medium">
             <input
               type="radio"
@@ -48,7 +48,7 @@ return(
             />
             Citizen
           </label>
-          <label className="flex items-center text-lg  font-sans font-medium">
+          {/* <label className="flex items-center text-lg  font-sans font-medium">
             <input
               type="radio"
               name="role"
@@ -58,7 +58,7 @@ return(
               className="mr-2"
             />
             NGO worker
-          </label>
+          </label> */}
         </div>        
         <div className="mt-6 flex justify-center">
           <button
