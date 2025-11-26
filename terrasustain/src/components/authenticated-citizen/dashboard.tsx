@@ -114,7 +114,7 @@ const CitizenDashboard: React.FC = () => {
               </button>
             </a>
 
-            <a href="/citizen/community">
+            <a href="/citizen/community-events">
               <button className="flex items-center gap-2 rounded-xl border border-primary px-5 py-3 text-primary font-medium hover:bg-primary/50 hover:text-white transition">
                 <UserGroupIcon className="h-5 w-5" />
                 Browse nearby community events
