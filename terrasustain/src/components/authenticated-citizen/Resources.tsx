@@ -34,7 +34,6 @@ return(
                 Download PDF
               </a>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <img src="/images/common future.png" alt="our common future book" />
               <a
@@ -45,7 +44,7 @@ return(
               >
                 Download PDF
               </a>
-            </div>
+            </div>   
             <div className="bg-white px-6 py-5 rounded-lg shadow-md">
               <img src="/images/soil conservation.png" alt="book" />
               <a
