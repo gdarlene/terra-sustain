@@ -55,7 +55,7 @@ const SideBar: React.FC = () => {
                   ))}
                 </ul>
               </li>
-              <li className="mt-auto">
+              <li className="mt-72">
                 <button className="flex items-center gap-2 text-red-600 hover:text-red-800" onClick={handleLogout}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

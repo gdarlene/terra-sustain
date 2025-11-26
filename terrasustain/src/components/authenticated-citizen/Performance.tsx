@@ -100,10 +100,7 @@ const Performance: React.FC = () => {
       {/* Sidebar for large screens */}
       <SideBar />
       <CitizenHeader />
-      
-      {/* Main content */}
-      <div className="flex-1 lg:ml-28 w-full">
-        <main className="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6">
+        <main className="lg:px-80 sm:px-4 sm:py-6">
           {/* Page title */}
           <div className="text-center sm:text-left mt-4 sm:mt-6">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-800">
@@ -204,7 +201,6 @@ const Performance: React.FC = () => {
           </section>
         </main>
       </div>
-    </div>
   );
 };
 

@@ -96,6 +96,16 @@ const CitizenDashboard: React.FC = () => {
               </button>
             </a>
           </div>
+          <div className="mt-11">
+            <p className="text-base sm:text-lg text-[#ab3d11] font-semibold font-body mb-6 max-w-2xl">
+                More analytics and features coming soon!
+              </p>
+              <img
+                src="/images/coming-soon.png"
+                className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 object-contain"
+                alt="feature coming soon alert"
+              />
+          </div>
         </div>
       </main>
     </div>
