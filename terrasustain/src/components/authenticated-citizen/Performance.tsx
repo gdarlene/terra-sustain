@@ -11,7 +11,6 @@ interface LeaderboardUser {
   id: number;
   firstName: string;
   lastName: string;
-  username: string;
   points: number;
   totalReports: number;
   rank: number;
@@ -22,8 +21,9 @@ const Performance: React.FC = () => {
   const [myRank, setMyRank] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const username = localStorage.getItem("username");
+  const [firstName, setFirstName] = useState("");
   useEffect(() => {
+    setFirstName(localStorage.getItem("firstName") || "");
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -42,7 +42,7 @@ const Performance: React.FC = () => {
         );
         setLeaderboard(leaderboardRes.data);
         const me = leaderboardRes.data.find(
-          (user: LeaderboardUser) => user.username === username
+          (user: LeaderboardUser) => user.firstName === firstName
         );
         if (me) setMyRank(me.rank);
 
@@ -56,7 +56,7 @@ const Performance: React.FC = () => {
     };
 
     fetchData();
-  }, [username]);
+  }, [firstName]);
 
   if (loading) {
     return (
@@ -86,18 +86,13 @@ const Performance: React.FC = () => {
             My Performance
           </h1>
           <p className="mt-2 text-lg text-gray-600">
-            Track your sustainability contributions.
+            Track your ongoing ranks and position and be able to receive awards and ranks!.
           </p>
         </div>
 
         {/* USER STATS */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold text-green-800 mb-6">
-            Your Stats
-          </h2>
-
+        <section className="mt-6">
           <div className="grid gap-6 md:grid-cols-4">
-
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 Points
@@ -121,7 +116,7 @@ const Performance: React.FC = () => {
                 Current Rank
               </h3>
               <p className="text-3xl font-bold text-green-600">
-                {myRank !== null ? `#${myRank}` : "—"}
+                {myRank !== null ? `${myRank}` : "—"}
               </p>
             </div>
           </div>
@@ -130,13 +125,13 @@ const Performance: React.FC = () => {
         {/* LEADERBOARD TABLE */}
         <section className="mt-16">
           <h2 className="text-2xl font-bold text-green-800 mb-4">
-            Global Leaderboard
+            Leaderboard
           </h2>
 
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white shadow rounded-lg">
               <thead>
-                <tr className="bg-green-600 text-white">
+                <tr className="bg-green-600/90 text-white">
                   <th className="py-3 px-4 text-left">Rank</th>
                   <th className="py-3 px-4 text-left">First Name</th>
                   <th className="py-3 px-4 text-left">Last Name</th>
@@ -149,8 +144,8 @@ const Performance: React.FC = () => {
                 {leaderboard.map((user) => (
                   <tr
                     key={user.id}
-                    className={`border-b hover:bg-gray-100 ${
-                      user.username === username ? "bg-green-50 font-bold" : ""
+                    className={`border-b hover:bg-gray-50 ${
+                      user.firstName === firstName ? "bg-green-100/50 font-bold" : ""
                     }`}
                   >
                     <td className="py-3 px-4">#{user.rank}</td>
