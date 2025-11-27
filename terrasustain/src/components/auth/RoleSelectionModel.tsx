@@ -1,209 +1,76 @@
 import React, { useState } from "react";
-import { useSearchParams, Link, useNavigate } from "react-router-dom";
-import { AuthCard } from "./AuthCard";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import axios, { AxiosError } from "axios";
-
-const RegisterPage: React.FC = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const role = searchParams.get("role");
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirm] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [error, setError] = useState("");
-
-  const API_BASE = "http://localhost:8096/terrasustain";
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    // Basic validation
-    if (!firstName || !lastName || !username || !phoneNumber || !password || !confirmPassword) {
-      setError("All fields are required");
-      return;
-    }
-
-    const phoneRegex = /^\+?[\d\s-]{7,15}$/;
-    if (!phoneRegex.test(phoneNumber)) {
-      setError("Please enter a valid phone number (e.g., +123-456-7890)");
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
-    if (!role) {
-      setError("Role is missing. Please go back and select your account type.");
-      return;
-    }
-
-    try {
-      const response = await axios.post(`${API_BASE}/register`, {
-        firstName,
-        lastName,
-        username,
-        phoneNumber,
-        password,
-        role: role,
-      });
-
-      const isSuccess = response.data?.success === true || response.status === 200;
-
-      if (isSuccess) {
-        navigate("/login", { state: { message: "Registration successful! Please log in." } });
-        return;
-      }
-
-      setError(response.data?.message ?? "Registration failed");
-    } catch (err) {
-      const axiosErr = err as AxiosError<{ message?: string }>;
-      setError(
-        axiosErr.response?.data?.message ??
-        axiosErr.message ??
-        "Something went wrong. Please try again."
-      );
-    }
-  };
-
-  return (
-    <AuthCard
-      logo="TerraSustain"
-      title="Create a Free Account!"
-      paragraph="Join the largest protective community for sustainability and the beauty of tomorrow!"
-      onSubmit={handleSubmit}
-      submitText="Register"
-      footer={
-        <>
-          Already have an account?{" "}
-          <Link to="/login" className="font-medium text-primary hover:underline">
-            Sign in
-          </Link>
-        </>
-      }
-    >
-      {error && <p className="text-red-600 text-sm text-center mb-4">{error}</p>}
-
-      {/* Names */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <div>
-          <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-1">
-            First Name
-          </label>
-          <input
-            id="first-name"
-            type="text"
-            placeholder="Enter first name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-        </div>
-        <div>
-          <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-1">
-            Last Name
-          </label>
-          <input
-            id="last-name"
-            type="text"
-            placeholder="Enter last name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-        </div>
-      </div>
-
-      {/* Username */}
-      <div>
-        <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-          Username
-        </label>
-        <input
-          id="username"
-          type="text"
-          placeholder="Enter username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-      </div>
-
-      {/* Phone Number */}
-      <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-          Phone Number
-        </label>
-        <input
-          id="phone"
-          type="tel"
-          placeholder="Enter phone number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-      </div>
-
-      {/* Password */}
-      <div className="relative">
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-          Password
-        </label>
-        <input
-          id="password"
-          type={showPassword ? "text" : "password"}
-          placeholder="Enter password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 py-2 pr-12 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-        <button
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute inset-y-0 right-0 top-6 flex items-center pr-3 text-gray-500 hover:text-gray-700"
-        >
-          {showPassword ? <VisibilityOff /> : <Visibility />}
-        </button>
-      </div>
-
-      {/* Confirm Password */}
-      <div className="relative">
-        <label htmlFor="confirm" className="block text-sm font-medium text-gray-700 mb-1">
-          Confirm Password
-        </label>
-        <input
-          id="confirm"
-          type={showConfirm ? "text" : "password"}
-          placeholder="Confirm your password"
-          value={confirmPassword}
-          onChange={(e) => setConfirm(e.target.value)}
-          className="w-full px-4 py-2 pr-12 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-        <button
-          type="button"
-          onClick={() => setShowConfirm(!showConfirm)}
-          className="absolute inset-y-0 right-0 top-6 flex items-center pr-3 text-gray-500 hover:text-gray-700"
-        >
-          {showConfirm ? <VisibilityOff /> : <Visibility />}
-        </button>
-      </div>
-    </AuthCard>
-  );
+import { CloseButton } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+const RoleSelector:React.FC<{ isOpen:boolean; onClose: () =>void}> =({isOpen, onClose})=>{
+    const [selectedRole,setselectedRole] =useState<string | null>(null);
+    const navigate = useNavigate();
+    const handleRoleChange = (role:string) =>{
+        setselectedRole(role);
+    };
+    const handleContinue = ()=>{
+    if(selectedRole){
+        navigate(`/register?role=${selectedRole.toUpperCase()}`);
+    };
 };
+if(!isOpen) return null;
+return(
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+      <div className="bg-[#eafbece9] rounded-lg shadow-lg p-6 w-1/3">
+        <h2 className="text-3xl font-semibold text-center mb-2 mt-3 text-primary/95">Select your User Type</h2>
+        <p className="text-center text-lg mb-6 font-medium">To create an account, please select your account type and continue to TerraSustain</p>
+        <div className="space-y-4">
+        <CloseButton
+            onClick={onClose}
+            className="absolute top-4 right-4 text-red-500 hover:text-red-700"
+            >
+            <span className="text-2xl">&times;</span>
+        </CloseButton>
 
-export default RegisterPage;
+          {/* <label className="flex items-center text-lg font-sans font-medium">
+            <input
+              type="radio"
+              name="role"
+              value="GOVERNMENT_PERSONAL"
+              checked={selectedRole === 'GOVERNMENT_PERSONAL'}
+              onChange={() => handleRoleChange('GOVERNMENT_PERSONAL')}
+              className="mr-2"
+            />
+            Gov
+          </label> */}
+          <label className="flex items-center text-lg  font-sans font-medium">
+            <input
+              type="radio"
+              name="role"
+              value="citizen"
+              checked={selectedRole === 'citizen'}
+              onChange={() => handleRoleChange('citizen')}
+              className="mr-2"
+            />
+            Citizen
+          </label>
+          {/* <label className="flex items-center text-lg  font-sans font-medium">
+            <input
+              type="radio"
+              name="role"
+              value="ngo"
+              checked={selectedRole === 'ngo'}
+              onChange={() => handleRoleChange('ngo')}
+              className="mr-2"
+            />
+            NGO worker
+          </label> */}
+        </div>        
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={handleContinue}
+            disabled={!selectedRole}
+            className="bg-primary/90 text-white px-4 py-2 rounded-md disabled:bg-primary/20"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+);
+};
+export default RoleSelector;
