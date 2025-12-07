@@ -5,8 +5,8 @@ import React from 'react';
 
 const Details: React.FC = () => {
   return (
-    // 🚀 This class hides the entire Details banner on mobile, shows on desktop
-    <div className="hidden sm:block">
+    //  This class hides the entire Details banner on mobile, shows on desktop
+    <div className="hidden sm:block z-[60] relative">
       <Disclosure
         as="div"
         className="relative bg-primary text-white"
@@ -53,7 +53,7 @@ const Details: React.FC = () => {
                           href="#"
                           className={`block px-4 py-2 text-sm ${
                             focus
-                              ? 'bg-neutral1-100 text-white'
+                              ? 'bg-sectionBg-50 text-textColor'
                               : 'text-gray-800 font-semibold'
                           }`}
                         >
@@ -68,7 +68,7 @@ const Details: React.FC = () => {
                           href="#"
                           className={`block px-4 py-2 text-sm ${
                             focus
-                              ? 'bg-neutral1-100 text-primary'
+                              ? 'bg-sectionBg-50 text-primary'
                               : 'text-gray-700'
                           }`}
                         >
@@ -83,7 +83,7 @@ const Details: React.FC = () => {
                           href="#"
                           className={`block px-4 py-2 text-sm ${
                             focus
-                              ? 'bg-neutral1-100 text-primary'
+                              ? 'bg-sectionBg-50 text-primary'
                               : 'text-gray-700'
                           }`}
                         >
@@ -98,7 +98,7 @@ const Details: React.FC = () => {
                           href="#"
                           className={`block px-4 py-2 text-sm ${
                             focus
-                              ? 'bg-neutral1-100 text-primary'
+                              ? 'bg-sectionBg-50 text-primary'
                               : 'text-gray-700'
                           }`}
                         >
