@@ -1,7 +1,5 @@
 package org.inganji.TerraSustain.model.DTO;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

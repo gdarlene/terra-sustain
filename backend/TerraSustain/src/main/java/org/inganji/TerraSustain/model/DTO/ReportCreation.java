@@ -2,14 +2,12 @@ package org.inganji.TerraSustain.model.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.inganji.TerraSustain.model.BadgeCategory;
 import org.inganji.TerraSustain.model.Category;
-import org.inganji.TerraSustain.model.Person;
 
 import java.util.Date;
 

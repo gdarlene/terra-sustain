@@ -1,36 +1,31 @@
 package org.inganji.TerraSustain.controller;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.inganji.TerraSustain.configuration.JwtUtil;
 import org.inganji.TerraSustain.model.DTO.*;
 import org.inganji.TerraSustain.model.Person;
 import org.inganji.TerraSustain.model.UserSummary;
-import org.inganji.TerraSustain.service.PersonService;
 import org.inganji.TerraSustain.service.impl.CustomUserDetailsService;
 import org.inganji.TerraSustain.service.impl.PersonServiceImpl;
 import org.inganji.TerraSustain.service.impl.ReportServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 @Data
 @RestController
 public class PersonController {
@@ -116,6 +111,7 @@ public class PersonController {
         return ResponseEntity.ok(stats);
     }
     @GetMapping("/citizen/profile/")
+    @PreAuthorize("hasRole('CITIZEN')")
     public ResponseEntity<PersonProfileResponse> getProfile(Authentication authentication) {
         String username = authentication.getName();
         PersonProfileResponse profile = personService.getPersonInfo(username);

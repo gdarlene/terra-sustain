@@ -8,7 +8,6 @@ import org.inganji.TerraSustain.model.DTO.ReportCreation;
 import org.inganji.TerraSustain.model.DTO.ReportResponse;
 import org.inganji.TerraSustain.model.Person;
 import org.inganji.TerraSustain.model.Report;
-import org.inganji.TerraSustain.repository.BadgeRepository;
 import org.inganji.TerraSustain.repository.IssueRepository;
 import org.inganji.TerraSustain.repository.PersonRepository;
 import org.inganji.TerraSustain.service.BadgeService;
@@ -23,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
