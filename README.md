@@ -1,8 +1,8 @@
 # TerraSustain
-TerraSustain is a platform that addresses the issues posed by deforestation and aims to sustain our earth's climatic conditions. 
+TerraSustain is a sustainability platform that addresses the issues of pollution by serving as a hub for connecting sustainability activists
 
 ## What it does
-Terrasnap is an enhanced platform that empowers environmental and sustainability activists like NGOs, government authorities among others to get real time access to the information about deforestation and soil destruction in general. 
+Terrasustain is an enhanced platform that empowers environmental and sustainability activists like NGOs, government authorities among others to get real time access to the information about pollution activities being carried out in the environment. It does by providing the reporting feature; where activists are able to upload different media (photos and videos) on recognized activities that are damaging the environment. 
 
 ### Key Features 
 - Real time Satellite image analysis for deforestation identification 
