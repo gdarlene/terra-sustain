@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
         {/* Contact / Social */}
         <div className="text-center sm:text-left" id="contacts">
           <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3">Contact Us</h3>
-          <p className="text-gray-200 text-sm sm:text-base mb-1 sm:mb-2">Western Province, Kigali, Rwanda</p>
+          <p className="text-gray-200 text-sm sm:text-base mb-1 sm:mb-2">Kigali, Rwanda</p>
           <p className="text-gray-200 text-sm sm:text-base mb-1 sm:mb-2">infoterrasustain@inganji.com</p>
           <p className="text-gray-200 text-sm sm:text-base">+250 780 318 907</p>
           <div className="flex justify-center sm:justify-start flex-wrap gap-3 mt-3 sm:mt-4">

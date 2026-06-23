@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SideBar from "./sidebar";
 import CitizenHeader from "./Citizen-header";
+import config from "../../config";
 
 interface DashboardStats {
   totalReports: number;
@@ -42,13 +43,13 @@ const Performance: React.FC = () => {
         }
 
         const statsRes = await axios.get(
-          "http://localhost:8096/terrasustain/citizen/stats",
+          `${config.apiUrl}/citizen/stats`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setStats(statsRes.data);
 
         const leaderboardRes = await axios.get(
-          "http://localhost:8096/terrasustain/citizen/leaderboard",
+          `${config.apiUrl}/citizen/leaderboard`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setLeaderboard(leaderboardRes.data);
@@ -184,7 +185,7 @@ const Performance: React.FC = () => {
                           {user.rank <= 3 ? user.rank : `#${user.rank}`}
                         </td>
                         <td className="py-2 px-2 sm:px-3 lg:px-4 whitespace-nowrap truncate max-w-[80px] sm:max-w-none">
-                          {user.firstName} {user.lastName}{isMe && " (You)"}
+                          {user.firstName} {user.lastName}{isMe && " (Me)"}
                         </td>
                         <td className="py-2 px-2 sm:px-3 lg:px-4 whitespace-nowrap hidden xs:table-cell" style={{ color: userBadge.color }}>
                           <span className="hidden xs:inline">{userBadge.emoji} </span>

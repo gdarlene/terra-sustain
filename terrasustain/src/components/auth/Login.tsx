@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthCard } from './AuthCard';
 import axios from 'axios';
 import type { AxiosResponse } from 'axios';
-
+import config from '../../config';
 interface SignInResponse {
   token: string;
   username: string;
@@ -17,7 +17,6 @@ const LoginPage: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const API_BASE = 'http://localhost:8096/terrasustain';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,7 +28,7 @@ const LoginPage: React.FC = () => {
     }
 
     try {
-      const response: AxiosResponse<SignInResponse> = await axios.post(`${API_BASE}/login`, {
+      const response: AxiosResponse<SignInResponse> = await axios.post(`${config.apiUrl}/login`, {
         username,
         password,
       });

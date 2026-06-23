@@ -3,7 +3,8 @@ import SideBar from "./sidebar";
 import CitizenHeader from "./Citizen-header";
 import ProfileSideBar from "./ProfileSectionSidebar";
 import axios from "axios";
-import  type {AxiosResponse}  from 'axios';
+import type { AxiosResponse } from "axios";
+import config from "../../config";
 
 interface PersonProfileResponse {
   username: string;
@@ -22,12 +23,20 @@ const Profile: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response :AxiosResponse<PersonProfileResponse> = await axios.get("http://localhost:8096/terrasustain/citizen/profile/", {
-          withCredentials: true
-        });
+        const token = localStorage.getItem("token");
+
+        const response: AxiosResponse<PersonProfileResponse> = await axios.get(
+          `${config.apiUrl}/citizen/profile/`,
+          {
+            headers: {
+            
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
         setProfile(response.data);
       } catch (err) {
-        console.error("404 | Failed to load page", err);
+        console.error("Failed to load profile page", err);
         setError(true);
       } finally {
         setLoading(false);
@@ -36,6 +45,7 @@ const Profile: React.FC = () => {
 
     fetchProfile();
   }, []);
+
   const safe = (value: string | null | undefined) => value || "N/A";
 
   // Full name for header
@@ -54,7 +64,9 @@ const Profile: React.FC = () => {
   if (error || !profile) {
     return (
       <div className="min-h-screen bg-gray-50 text-neutral-800 flex items-center justify-center">
-        <p className="text-red-600">Failed to load profile. Please try again later.</p>
+        <p className="text-red-600">
+          Failed to load profile. Please try again later.
+        </p>
       </div>
     );
   }
@@ -92,18 +104,19 @@ const Profile: React.FC = () => {
                         {fullName === "N/A N/A" ? profile.username : fullName}
                       </h2>
                       <p className="mt-1 text-lg">Citizen • Western Province</p>
-                      <p className="mt-1 text-neutral-500 text-sm">Rubavu District, Rwanda</p>
+                      <p className="mt-1 text-neutral-500 text-sm">
+                        Rubavu District, Rwanda
+                      </p>
                     </div>
                   </div>
-                  <button className="mt-4 md:mt-0 rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium hover:bg-neutral-100 transition">
-                    Edit
-                  </button>
                 </div>
 
                 {/* Personal Information */}
                 <div className="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-subheadings font-medium">Personal Information</h3>
+                    <h3 className="text-xl font-subheadings font-medium">
+                      Personal Information
+                    </h3>
                     <button className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium hover:bg-neutral-100 transition">
                       Edit
                     </button>
@@ -111,11 +124,15 @@ const Profile: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                     <div>
                       <p className="text-neutral-500">First Name</p>
-                      <p className="mt-1 font-medium">{safe(profile.firstName)}</p>
+                      <p className="mt-1 font-medium">
+                        {safe(profile.firstName)}
+                      </p>
                     </div>
                     <div>
                       <p className="text-neutral-500">Last Name</p>
-                      <p className="mt-1 font-medium">{safe(profile.lastName)}</p>
+                      <p className="mt-1 font-medium">
+                        {safe(profile.lastName)}
+                      </p>
                     </div>
                     <div>
                       <p className="text-neutral-500">Email address</p>
@@ -123,7 +140,9 @@ const Profile: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-neutral-500">Phone</p>
-                      <p className="mt-1 font-medium">{safe(profile.phoneNumber)}</p>
+                      <p className="mt-1 font-medium">
+                        {safe(profile.phoneNumber)}
+                      </p>
                     </div>
                     <div className="sm:col-span-2">
                       <p className="text-neutral-500">Bio</p>

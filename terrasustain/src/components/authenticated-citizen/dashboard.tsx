@@ -3,6 +3,7 @@ import axios from "axios";
 import SideBar from "../authenticated-citizen/sidebar";
 import CitizenHeader from "./Citizen-header";
 import { UserGroupIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
+import config from "../../config";
 
 interface DashboardStats {
   totalReports: number;
@@ -29,7 +30,7 @@ const CitizenDashboard: React.FC = () => {
         }
 
         const res = await axios.get(
-          "http://localhost:8096/terrasustain/citizen/stats",
+          `${config.apiUrl}/citizen/stats`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setStats(res.data);

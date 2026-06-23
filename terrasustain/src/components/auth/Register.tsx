@@ -5,6 +5,7 @@ import { AuthCard } from './AuthCard';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios, {AxiosError} from 'axios';
+import config from '../../config';
 
 const SignupPage: React.FC = () => {
   const navigate  = useNavigate();
@@ -17,7 +18,6 @@ const SignupPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [error, setError] = useState('');
-  const API_BASE = 'http://localhost:8096/terrasustain';
 
   const [searchParams] =useSearchParams();
   const role = searchParams.get("role")
@@ -53,7 +53,7 @@ const SignupPage: React.FC = () => {
     }
     // API call
     try {
-      const response = await axios.post(`${API_BASE}/register`, {
+      const response = await axios.post(`${config.apiUrl}/register`, {
         firstName,
         lastName,
         username,

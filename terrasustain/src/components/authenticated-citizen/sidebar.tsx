@@ -1,23 +1,59 @@
-import { HomeIcon, DocumentIcon, UserGroupIcon, BookOpenIcon, StarIcon } from '@heroicons/react/24/outline';
-import axios from 'axios';
-import React from 'react';
+import {
+  HomeIcon,
+  DocumentIcon,
+  UserGroupIcon,
+  BookOpenIcon,
+  StarIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
+import axios from "axios";
+import React from "react";
+import config from "../../config";
 
 const SideBar: React.FC = () => {
   const navItems = [
-    { name: 'Home', icon: HomeIcon, href: '/citizen', current: false },
-    { name: 'Community', icon: UserGroupIcon, href: '/citizen/community', current: false },
-    { name: 'Report Issue', icon: DocumentIcon, href: '/citizen/add_issue', current: false },
-    { name: 'Sustainability Resources', icon: BookOpenIcon, href: '/citizen/resources', current: false },
-    { name: 'My Performance', icon: StarIcon, href: '/citizen/performance', current: false },
+    { name: "Home", icon: HomeIcon, href: "/citizen", current: false },
+    {
+      name: "Community",
+      icon: UserGroupIcon,
+      href: "/citizen/community",
+      current: false,
+    },
+    {
+      name: "Report Issue",
+      icon: DocumentIcon,
+      href: "/citizen/add_issue",
+      current: false,
+    },
+    {
+      name: "Sustainability Resources",
+      icon: BookOpenIcon,
+      href: "/citizen/resources",
+      current: false,
+    },
+    {
+      name: "My Performance",
+      icon: StarIcon,
+      href: "/citizen/performance",
+      current: false,
+    },
+    {
+      name: "Profile",
+      icon: UserIcon,
+      href: "/citizen/profile",
+      current: false,
+    },
   ];
-
-  const API_BASE = "http://localhost:8096/terrasustain";
 
   const handleLogout = async () => {
     try {
-      await axios.post(`${API_BASE}/logout`, {}, { withCredentials: true });
+      await axios.post(
+        `${config.apiUrl}/logout`,
+        {},
+        { withCredentials: true },
+      );
       localStorage.clear();
-      window.location.href = '/';
+      window.location.href = "/";
     } catch (err) {
       console.warn("Logout failed", err);
     }
@@ -44,11 +80,14 @@ const SideBar: React.FC = () => {
                         href={item.href}
                         className={`group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 transition ${
                           item.current
-                            ? 'bg-primary/70 font-semibold mt-3 text-white'
-                            : 'hover:bg-primary/70 hover:text-white'
+                            ? "bg-primary/70 font-semibold mt-3 text-white"
+                            : "hover:bg-primary/70 hover:text-white"
                         }`}
                       >
-                        <item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
+                        <item.icon
+                          className="h-6 w-6 shrink-0"
+                          aria-hidden="true"
+                        />
                         {item.name}
                       </a>
                     </li>
@@ -56,7 +95,10 @@ const SideBar: React.FC = () => {
                 </ul>
               </li>
               <li className="mt-72">
-                <button className="flex items-center gap-2 text-red-600 hover:text-red-800" onClick={handleLogout}>
+                <button
+                  className="flex items-center gap-2 text-red-600 hover:text-red-800"
+                  onClick={handleLogout}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -87,7 +129,7 @@ const SideBar: React.FC = () => {
               key={item.name}
               href={item.href}
               className={`flex flex-col items-center p-2 text-xs ${
-                item.current ? 'text-primary' : 'text-primary/80'
+                item.current ? "text-primary" : "text-primary/80"
               }`}
             >
               <item.icon className="h-6 w-6" />

@@ -5,6 +5,7 @@ import axios from "axios";
 import CitizenHeader from "./Citizen-header";
 import { useNavigate } from "react-router-dom";
 import SuccessModal from "./SuccessModel";
+import config from "../../config";
 
 interface Issue {
   issueDescription: string;
@@ -99,7 +100,7 @@ const AddIssue: React.FC = () => {
       };
 
       await axios.post(
-        "http://localhost:8096/terrasustain/citizen/add_Issue",
+        `${config.apiUrl}/citizen/add_Issue`,
         payload,
         { headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } }
       );

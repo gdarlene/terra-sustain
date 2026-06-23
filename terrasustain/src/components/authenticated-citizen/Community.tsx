@@ -4,6 +4,7 @@ import CitizenHeader from './Citizen-header';
 import axios from 'axios';
 import { Search } from '@mui/icons-material';
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import config from '../../config';
 
 interface ReportResponse {
   id: number;
@@ -30,7 +31,7 @@ const CommunityPage: React.FC = () => {
   const fetchData = async () => {
     try {
       const reportsRes = await axios.get(
-        'http://localhost:8096/terrasustain/citizen/reports',
+        `${config.apiUrl}/citizen/reports`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -50,7 +51,7 @@ const CommunityPage: React.FC = () => {
 
     try {
       const res = await axios.get(
-        `http://localhost:8096/terrasustain/citizen/search?q=${encodeURIComponent(searchTerm)}`,
+        `${config.apiUrl}/citizen/search?q=${encodeURIComponent(searchTerm)}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setReports(res.data);

@@ -1,16 +1,14 @@
-import {HomeIcon, ShoppingBagIcon, BellIcon,} from '@heroicons/react/24/outline';
+import {HomeIcon,} from '@heroicons/react/24/outline';
 
 const ProfileSideBar: React.FC = () => {
   const navItems = [
     { name: 'Personal Info', icon: HomeIcon, href: '/citizen/personal_info', current: true },
-    { name: 'Emails & passwords', icon: ShoppingBagIcon, href: '/citizen/security', current: false },
-    { name: 'Notifications', icon: BellIcon, href: '/citizen/notifications', current: false },
   ];
   return (
     <div className="bg-sectionBg-50">
       {/* Sidebar - Desktop */}
       <aside className="hidden max-h-[75vh] -mx-64 mt-40 lg:fixed lg:inset-y-0 lg:flex lg:w-60 lg:flex-col">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 shadow-lg">
+        <div className="flex flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-6 shadow-lg rounded-md">
           <nav className="flex flex-1 flex-col">
             {/* logo */}
             <div className="mt-5 items-center">
